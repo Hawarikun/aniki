@@ -11,7 +11,7 @@ class SearchAnimeRepository {
   Future<List<Anime>> index({
     String? query,
     String? type,
-    String? gendre,
+    String? genre,
     String? orderby,
     String? status,
     String? page,
@@ -19,7 +19,7 @@ class SearchAnimeRepository {
     return await ApiHelper().getData(
       uri: api.index(
         query: query,
-        gendres: gendre,
+        genres: genre,
         type: type,
         orderby: orderby,
         status: status,

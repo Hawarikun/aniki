@@ -1,4 +1,5 @@
 import 'package:aniki/core/config/router.dart';
+import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/features/search/persentation/controller/search.dart';
 import 'package:aniki/features/search/persentation/view/search.dart';
 import 'package:aniki/widgets/choice.dart';
@@ -6,12 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-final gendresProvider = StateProvider<String>((ref) => "");
+// final genresProvider = StateProvider<String>((ref) => "");
 final typeProvider = StateProvider<String>((ref) => "");
 final orderByProvider = StateProvider<String>((ref) => "title");
 final sortProvider = StateProvider<String>((ref) => "asc");
 final statusProvider = StateProvider<String>((ref) => "");
 final currentIndexProvider = StateProvider<int>((ref) => 0);
+final genresProvider = StateProvider<List<int>>((ref) => []);
 
 class Filter {
   filter({
@@ -22,7 +24,7 @@ class Filter {
     // final currentIndex = ref.watch(currentIndexProvider);
     final searchController = ref.watch(searchControllerProvider);
     final type = ref.watch(typeProvider);
-    final gendres = ref.watch(gendresProvider);
+    final genres = ref.watch(genresProvider);
     final orderBy = ref.watch(orderByProvider);
     // final sort = ref.watch(sortProvider);
     final status = ref.watch(statusProvider);
@@ -59,7 +61,7 @@ class Filter {
                     ref.read(currentIndexProvider.notifier).state = value,
                 tabs: const [
                   Tab(text: "General"),
-                  Tab(text: "Gendres"),
+                  Tab(text: "Genres"),
                 ],
               ),
 
@@ -68,7 +70,7 @@ class Filter {
                 child: TabBarView(
                   children: [
                     FilterGeneral(),
-                    Center(child: Text("Type")),
+                    FilterGenres(),
                   ],
                 ),
               ),
@@ -92,7 +94,7 @@ class Filter {
                       searchControllerProv(
                         SearchAnimeParams(
                           query: searchController.text,
-                          gendre: gendres,
+                          gendre: genres.map((genres) => genres).join(','),
                           orderby: orderBy,
                           status: status,
                           type: type,
@@ -160,22 +162,21 @@ class FilterGeneral extends ConsumerWidget {
     final selectedOrder = ref.watch(orderByProvider);
     final sort = ref.watch(sortProvider);
 
-    print("selected : $selectedStatus");
-    print("selected : $selectedType");
-    print("selected : $selectedOrder");
-    print("selected : $sort");
+    // print("selected : $selectedStatus");
+    // print("selected : $selectedType");
+    // print("selected : $selectedOrder");
+    // print("selected : $sort");
 
     return Padding(
       padding: EdgeInsets.fromLTRB(
         size.width * 0.05,
-        size.height * 0.01,
+        size.height * 0.02,
         size.width * 0.05,
         0,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Gap(size.height * 0.01),
           const Text(
             "Status",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -255,6 +256,78 @@ class FilterGeneral extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class FilterGenres extends ConsumerWidget {
+  const FilterGenres({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
+    final selectedGenres = ref.watch(genresProvider);
+
+    print(selectedGenres.map((genres) => genres).join(','));
+
+    List<Genre> genres = [
+      Genre(malId: 1, name: "Action"),
+      Genre(malId: 2, name: "Adventure"),
+      Genre(malId: 4, name: "Comedy"),
+      Genre(malId: 8, name: "Drama"),
+      Genre(malId: 9, name: "Ecchi"),
+      Genre(malId: 10, name: "Fantasy"),
+      Genre(malId: 14, name: "Horror"),
+      Genre(malId: 35, name: "Harem"),
+      Genre(malId: 13, name: "Historical"),
+      Genre(malId: 62, name: "Isekai"),
+      Genre(malId: 43, name: "Josei"),
+      Genre(malId: 17, name: "Material Arts"),
+      Genre(malId: 18, name: "Mecha"),
+      Genre(malId: 38, name: "Military"),
+      Genre(malId: 19, name: "Music"),
+      Genre(malId: 7, name: "Mystery"),
+      Genre(malId: 22, name: "Romance"),
+      Genre(malId: 42, name: "Seinen"),
+      Genre(malId: 16, name: "School"),
+      Genre(malId: 24, name: "Sci-Fi"),
+      Genre(malId: 25, name: "Shoujo"),
+      Genre(malId: 27, name: "Shounen"),
+      Genre(malId: 36, name: "Slice of Life"),
+      Genre(malId: 20, name: "Parody"),
+      Genre(malId: 18, name: "Supernatural"),
+      Genre(malId: 30, name: "Sports"),
+      Genre(malId: 40, name: "Psychological"),
+      Genre(malId: 19, name: "Tragedy"),
+      Genre(malId: 32, name: "Vampire"),
+    ];
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        size.width * 0.05,
+        size.height * 0.02,
+        size.width * 0.05,
+        0,
+      ),
+      child: MultiChoice(
+        selectedItems: selectedGenres,
+        items: genres,
+        provider: genresProvider,
+      ),
+      // child: Wrap(
+      //   spacing: size.width * 0.025,
+      //   runSpacing: size.width * 0.025,
+      //   children: genres
+      //       .map((genre) => FilterChip(
+      //             label: Text(genre.name),
+      //             selectedColor: Theme.of(context).colorScheme.primary,
+      //             selected: selectedGenres == genre.malId,
+      //             onSelected: (value) {
+      //               ref.read(genreProvider.notifier).state = genre.malId;
+      //             },
+      //       ))
+      //       .toList(),
+      // ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:aniki/core/domain/anime.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,6 +40,55 @@ class SingleChoice extends ConsumerWidget {
                 ref.read(provider.notifier).state = item[index];
               }
             }
+          },
+        );
+      }).toList(),
+    );
+  }
+}
+
+class MultiChoice extends ConsumerWidget {
+  const MultiChoice({
+    required this.selectedItems,
+    required this.items,
+    required this.provider,
+    super.key,
+  });
+
+  final List<int> selectedItems;
+  final List<Genre> items;
+  final StateProvider<List<int>> provider;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final size = MediaQuery.of(context).size;
+
+    return Wrap(
+      spacing: size.width * 0.02,
+      children: List<Widget>.generate(items.length, (index) {
+        final isSelected = selectedItems.contains(items[index].malId);
+
+        return ChoiceChip(
+          labelStyle: TextStyle(
+            fontSize: size.height * 0.0175,
+          ),
+          showCheckmark: false,
+          selectedColor: Theme.of(context).colorScheme.primary,
+          label: Text(items[index].name),
+          selected: isSelected,
+          onSelected: (value) {
+            final selectedList = List<int>.from(selectedItems);
+
+            if (isSelected) {
+              // If the genre is already selected, remove it from the list
+              selectedList.remove(items[index].malId);
+            } else {
+              // If the genre is not selected, add it to the list
+              selectedList.add(items[index].malId);
+            }
+
+            // Update the provider state with the new selected list of genre IDs
+            ref.read(provider.notifier).state = selectedList;
           },
         );
       }).toList(),

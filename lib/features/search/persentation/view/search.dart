@@ -2,7 +2,7 @@ import 'package:aniki/core/apis/search.dart';
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/features/search/data/search.dart';
-import 'package:aniki/features/search/persentation/view/Filter.dart';
+import 'package:aniki/features/search/persentation/view/filter.dart';
 import 'package:aniki/widgets/card.dart';
 import 'package:aniki/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,7 @@ class SearchPageState extends ConsumerState<SearchPage> {
 
   Future<void> fetchPage(int pageKey) async {
     final searchController = ref.read(searchControllerProvider);
-    final gendres = ref.read(gendresProvider);
+    final genres = ref.read(genresProvider);
     final type = ref.read(typeProvider);
     final orderBy = ref.read(orderByProvider);
     final status = ref.read(statusProvider);
@@ -59,7 +59,7 @@ class SearchPageState extends ConsumerState<SearchPage> {
     try {
       final newItems = await SearchAnimeRepository(SearchApi()).index(
         page: pageKey.toString(),
-        gendre: gendres,
+        genre: genres.map((genres) => genres).join(','),
         orderby: orderBy,
         query: searchController.text,
         status: status,
@@ -91,13 +91,13 @@ class SearchPageState extends ConsumerState<SearchPage> {
     final size = MediaQuery.of(context).size;
     final searchController = ref.watch(searchControllerProvider);
     final resultCount = ref.watch(resultCountProvider);
-    // final gendres = ref.watch(gendresProvider);
+    // final genres = ref.watch(genresProvider);
     // final type = ref.watch(typeProvider);
     // final orderBy = ref.watch(orderByProvider);
     // final status = ref.watch(statusProvider);
     // final searchRepo = ref.watch(searchControllerProv(SearchAnimeParams(
     //   query: searchController.text,
-    //   gendre: gendres,
+    //   gendre: genres,
     //   orderby: orderBy,
     //   status: status,
     //   type: type,

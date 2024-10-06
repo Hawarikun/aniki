@@ -17,7 +17,7 @@ class SearchAnimeController extends StateNotifier<AsyncValue<List<Anime>>> {
     try {
       final response = await repo.index(
         query: params.query,
-        gendre: params.gendre,
+        genre: params.gendre,
         orderby: params.orderby,
         status: params.status,
         type: params.type,

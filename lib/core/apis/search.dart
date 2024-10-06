@@ -4,7 +4,7 @@ class SearchApi {
   Uri index(
       {required String? query,
       String? type,
-      String? gendres,
+      String? genres,
       String? status,
       String? orderby,
       String? sort,
@@ -13,7 +13,7 @@ class SearchApi {
       endpoint: "anime",
       params: {
         "q": query ?? "",
-        "gendres": gendres ?? "",
+        "genres": genres ?? "",
         "sort": sort ?? "",
         "type": type ?? "",
         "status": status ?? "",
