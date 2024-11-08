@@ -1,14 +1,17 @@
 import 'package:aniki/core/apis/search.dart';
 import 'package:aniki/core/config/router.dart';
+import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/features/search/data/search.dart';
 import 'package:aniki/features/search/persentation/view/filter.dart';
-import 'package:aniki/widgets/card.dart';
+import 'package:aniki/widgets/cards/tile.dart';
+import 'package:aniki/widgets/shimmers/tile.dart';
 import 'package:aniki/widgets/textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:svg_flutter/svg.dart';
 
 final searchControllerProvider =
     StateProvider.autoDispose<TextEditingController>(
@@ -34,8 +37,12 @@ class SearchPageState extends ConsumerState<SearchPage> {
     super.initState();
     final searchController = ref.read(searchControllerProvider);
     searchController.addListener(() {
-      ref.read(pagingControllerProvider).refresh(); // Reset paginated data
-      fetchPage(1); // Trigger new search
+      ref.read(pagingControllerProvider).refresh();
+      // final pagingController =
+      //     ref.read(pagingControllerProvider);
+      // pagingController.addPageRequestListener((pageKey) {
+      //   fetchPage(pageKey);
+      // }); // Trigger new search
     });
 
     final pagingController = ref.read(pagingControllerProvider);
@@ -44,10 +51,10 @@ class SearchPageState extends ConsumerState<SearchPage> {
     });
   }
 
-  void refreshSearch() {
-    final pagingController = ref.read(pagingControllerProvider);
-    pagingController.refresh();
-  }
+  // void refreshSearch() {
+  //   final pagingController = ref.read(pagingControllerProvider);
+  //   pagingController.refresh();
+  // }
 
   Future<void> fetchPage(int pageKey) async {
     final searchController = ref.read(searchControllerProvider);
@@ -65,8 +72,8 @@ class SearchPageState extends ConsumerState<SearchPage> {
         status: status,
         type: type,
       );
-      final isLastPage =
-          newItems.length < 3; // You can adjust the page size here
+
+      final isLastPage = newItems.length < 24;
       final pagingController = ref.read(pagingControllerProvider);
       if (isLastPage) {
         pagingController.appendLastPage(newItems);
@@ -90,18 +97,7 @@ class SearchPageState extends ConsumerState<SearchPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final searchController = ref.watch(searchControllerProvider);
-    final resultCount = ref.watch(resultCountProvider);
-    // final genres = ref.watch(genresProvider);
-    // final type = ref.watch(typeProvider);
-    // final orderBy = ref.watch(orderByProvider);
-    // final status = ref.watch(statusProvider);
-    // final searchRepo = ref.watch(searchControllerProv(SearchAnimeParams(
-    //   query: searchController.text,
-    //   gendre: genres,
-    //   orderby: orderBy,
-    //   status: status,
-    //   type: type,
-    // )));
+    // final resultCount = ref.watch(resultCountProvider);
 
     final pagingController = ref.watch(pagingControllerProvider);
 
@@ -129,7 +125,26 @@ class SearchPageState extends ConsumerState<SearchPage> {
                       maxLines: 1,
                     ),
                   ),
-                  // Gap(size.width * 0.025),
+                  Gap(size.width * 0.025),
+                  InkWell(
+                    onTap: () {
+                      Filter().filter(context: context, ref: ref);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(size.width * 0.025),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Icon(
+                        Icons.filter_alt_outlined,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -142,54 +157,78 @@ class SearchPageState extends ConsumerState<SearchPage> {
                   0,
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Gap(size.height * 0.01),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Results : $resultCount"),
-                        InkWell(
-                          onTap: () {
-                            Filter().filter(context: context, ref: ref);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(size.width * 0.025),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Icon(
-                              Icons.filter_alt_outlined,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Gap(size.height * 0.01),
+                    Gap(size.height * 0.025),
+
+                    // Gap(size.height * 0.01),
                     Expanded(
                       child: Visibility(
                         // visible: searchController.text.isNotEmpty,
                         child: PagedListView<int, Anime>(
                           pagingController: pagingController,
                           builderDelegate: PagedChildBuilderDelegate<Anime>(
-                              animateTransitions: true,
-                              // [transitionDuration] has a default value of 250 milliseconds.
-                              transitionDuration:
-                                  const Duration(milliseconds: 1000),
-                              itemBuilder: (context, item, index) {
-                                Future(() {
+                            animateTransitions: true,
+                            // [transitionDuration] has a default value of 250 milliseconds.
+                            transitionDuration:
+                                const Duration(milliseconds: 1000),
+                            itemBuilder: (context, item, index) {
+                              Future(
+                                () {
                                   ref.read(resultCountProvider.notifier).state =
                                       index;
-                                });
+                                },
+                              );
 
-                                return AnimeIndexTileCard(
-                                  anime: item,
-                                );
-                              }),
+                              return AnimeIndexTileCard(
+                                anime: item,
+                              );
+                            },
+                            firstPageProgressIndicatorBuilder: (context) =>
+                                const ListAnimeIndexSTileCard(),
+                            firstPageErrorIndicatorBuilder: (_) => Center(
+                              child: Text(
+                                pagingController.error.toString(),
+                              ),
+                            ),
+                            newPageErrorIndicatorBuilder: (_) => Center(
+                              child: Text(
+                                pagingController.error.toString(),
+                              ),
+                            ),
+                            noItemsFoundIndicatorBuilder: (_) => Center(
+                              child: Column(
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Gap(size.height * 0.1),
+                                  SizedBox(
+                                    width: size.width * 0.7,
+                                    child: SvgPicture.asset(
+                                      "assets/svg/404.svg",
+                                    ),
+                                  ),
+                                  Gap(size.height * 0.01),
+                                  Text(
+                                    "Not Found",
+                                    style: TextStyle(
+                                      fontSize: h1 * size.height,
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                  Gap(size.height * 0.01),
+                                  Text(
+                                    "Sorry, the keyword you entered could not be found. Try to check again or search with other keywords.",
+                                    style: TextStyle(
+                                      fontSize: h3 * size.height,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                         // child: searchRepo.when(
                         //   data: (data) {

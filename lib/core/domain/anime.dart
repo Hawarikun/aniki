@@ -5,12 +5,12 @@ class Anime {
   Trailer? trailer;
   String title;
   String? titleEnglish;
-  String titleJapanese;
+  String? titleJapanese;
   String type;
   String source;
   int? episodes;
   String status;
-  String duration;
+  // String duration;
   String? rating;
   double? score;
   String? synopsis;
@@ -26,13 +26,13 @@ class Anime {
     required this.images,
     this.trailer,
     required this.title,
-    this.titleEnglish,
-    required this.titleJapanese,
+    // this.titleEnglish,
+    // this.titleJapanese,
     required this.type,
     required this.source,
     this.episodes,
     required this.status,
-    required this.duration,
+    // required this.duration,
     this.rating,
     this.score,
     this.synopsis,
@@ -48,13 +48,13 @@ class Anime {
         images: map["images"]["jpg"]["large_image_url"],
         trailer: Trailer.fromJson(map["trailer"]),
         title: map["title"],
-        titleEnglish: map["title_english"] ?? "N/A",
-        titleJapanese: map["title_japanese"],
+        // titleEnglish: map["title_english"] ?? "N/A",
+        // titleJapanese: map["title_japanese"] ?? "N/A",
         type: map["type"],
         source: map["source"],
         episodes: map["episodes"] ?? 0,
         status: map["status"],
-        duration: map["duration"],
+        // duration: map["duration"],
         rating: map["rating"] ?? "N/A",
         score: map['score'] is int
             ? (map['score'] as int).toDouble()

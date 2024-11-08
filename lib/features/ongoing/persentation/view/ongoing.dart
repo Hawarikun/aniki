@@ -1,6 +1,7 @@
 import 'package:aniki/features/ongoing/persentation/controller/ongoing.dart';
 import 'package:aniki/widgets/button.dart';
-import 'package:aniki/widgets/card.dart';
+import 'package:aniki/widgets/cards/card.dart';
+import 'package:aniki/widgets/shimmers/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -50,17 +51,8 @@ class OngoingList extends ConsumerWidget {
         ),
         animeList.when(
           data: (data) {
-            return SizedBox(
-              height: size.height * 0.3,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return AnimeIndexCard(
-                    anime: data[index],
-                  );
-                },
-              ),
+            return ListAnimeIndexCard(
+              data: data,
             );
           },
           error: (error, stackTrace) => Center(
@@ -68,9 +60,7 @@ class OngoingList extends ConsumerWidget {
               error.toString(),
             ),
           ),
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
-          ),
+          loading: () => const ListAnimeIndexSCard(),
         )
       ],
     );

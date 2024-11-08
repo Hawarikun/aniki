@@ -1,5 +1,5 @@
 import 'package:aniki/core/config/router.dart';
-import 'package:aniki/core/domain/anime.dart';
+import 'package:aniki/core/dummys/genres.dart';
 import 'package:aniki/features/search/persentation/controller/search.dart';
 import 'package:aniki/features/search/persentation/view/search.dart';
 import 'package:aniki/widgets/choice.dart';
@@ -150,6 +150,7 @@ class FilterGeneral extends ConsumerWidget {
     ];
 
     List<String> order = [
+      "Relevance",
       "A-Z",
       "Z-A",
       "last updated",
@@ -209,8 +210,6 @@ class FilterGeneral extends ConsumerWidget {
             children: List<Widget>.generate(order.length, (index) {
               final isSelected = selectedOrder == order[index];
 
-              print(selectedOrder == order[index]);
-
               return ChoiceChip(
                 labelStyle: TextStyle(
                   fontSize: size.height * 0.0175,
@@ -233,7 +232,10 @@ class FilterGeneral extends ConsumerWidget {
                   // Pastikan satu chip selalu dipilih
                   if (!isSelected) {
                     // Jika tidak dipilih, ubah status menjadi status yang dipilih
-                    if (order[index] == "A-Z") {
+                    if (order[index] == "Relevance") {
+                      ref.read(orderByProvider.notifier).state = "";
+                      ref.read(sortProvider.notifier).state = "";
+                    } else if (order[index] == "A-Z") {
                       ref.read(orderByProvider.notifier).state = "title";
                       ref.read(sortProvider.notifier).state = "asc";
                     } else if (order[index] == "Z-A") {
@@ -267,40 +269,6 @@ class FilterGenres extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     final selectedGenres = ref.watch(genresProvider);
-
-    print(selectedGenres.map((genres) => genres).join(','));
-
-    List<Genre> genres = [
-      Genre(malId: 1, name: "Action"),
-      Genre(malId: 2, name: "Adventure"),
-      Genre(malId: 4, name: "Comedy"),
-      Genre(malId: 8, name: "Drama"),
-      Genre(malId: 9, name: "Ecchi"),
-      Genre(malId: 10, name: "Fantasy"),
-      Genre(malId: 14, name: "Horror"),
-      Genre(malId: 35, name: "Harem"),
-      Genre(malId: 13, name: "Historical"),
-      Genre(malId: 62, name: "Isekai"),
-      Genre(malId: 43, name: "Josei"),
-      Genre(malId: 17, name: "Material Arts"),
-      Genre(malId: 18, name: "Mecha"),
-      Genre(malId: 38, name: "Military"),
-      Genre(malId: 19, name: "Music"),
-      Genre(malId: 7, name: "Mystery"),
-      Genre(malId: 22, name: "Romance"),
-      Genre(malId: 42, name: "Seinen"),
-      Genre(malId: 16, name: "School"),
-      Genre(malId: 24, name: "Sci-Fi"),
-      Genre(malId: 25, name: "Shoujo"),
-      Genre(malId: 27, name: "Shounen"),
-      Genre(malId: 36, name: "Slice of Life"),
-      Genre(malId: 20, name: "Parody"),
-      Genre(malId: 18, name: "Supernatural"),
-      Genre(malId: 30, name: "Sports"),
-      Genre(malId: 40, name: "Psychological"),
-      Genre(malId: 19, name: "Tragedy"),
-      Genre(malId: 32, name: "Vampire"),
-    ];
 
     return Padding(
       padding: EdgeInsets.fromLTRB(

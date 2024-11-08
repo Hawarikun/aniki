@@ -1,6 +1,6 @@
 import 'package:aniki/features/ongoing/persentation/view/ongoing.dart';
 import 'package:aniki/features/top/persentation/view/top_anime.dart';
-import 'package:aniki/widgets/appbar.dart';
+import 'package:aniki/widgets/appbars/sliver.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

@@ -40,16 +40,18 @@ class AddListButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return TextButton.icon(
       style: TextButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       onPressed: () {},
-      label: const Text(
+      label: Text(
         "My List",
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.white, fontSize: size.height * h2),
       ),
-      icon: const Icon(Icons.add, color: Colors.white),
+      icon: Icon(Icons.add, color: Colors.white, size: size.height * h1),
     );
   }
 }

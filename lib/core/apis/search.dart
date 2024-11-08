@@ -19,6 +19,7 @@ class SearchApi {
         "status": status ?? "",
         "order_by": orderby ?? "title",
         "page": page ?? "1",
+        "sfw": "false",
       },
     );
   }

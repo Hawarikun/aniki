@@ -1,6 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/features/detail/persentation/controller/detail.dart';
-import 'package:aniki/widgets/appbar.dart';
+import 'package:aniki/widgets/appbars/sliver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
