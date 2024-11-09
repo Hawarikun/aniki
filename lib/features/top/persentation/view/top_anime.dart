@@ -1,3 +1,4 @@
+import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/features/top/persentation/controller/top_anime.dart';
 import 'package:aniki/widgets/button.dart';
 import 'package:aniki/widgets/cards/card.dart';
@@ -25,7 +26,7 @@ class TopAnimeList extends ConsumerWidget {
       children: [
         Padding(
           padding: EdgeInsets.fromLTRB(
-            size.width * 0.05,
+            size.width * 0.03,
             0,
             size.width * 0.05,
             size.height * 0.02,
@@ -35,24 +36,24 @@ class TopAnimeList extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Anime Teratas",
+                "Top Anime",
                 style: TextStyle(
-                  fontSize: size.height * 0.03,
+                  fontSize: size.height * h1,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               CustomTextButton(
                 onTap: () {},
-                label: "Semua",
+                label: "See all",
                 color: Theme.of(context).colorScheme.primary,
               ),
             ],
           ),
         ),
         animeList.when(
-          data: (data) {
+          data: (datas) {
             return ListAnimeIndexCard(
-              data: data,
+              datas: datas,
             );
           },
           error: (error, stackTrace) => Center(

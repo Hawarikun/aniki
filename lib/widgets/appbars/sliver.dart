@@ -1,107 +1,119 @@
+import 'package:aniki/core/config/router.dart';
+import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/features/random/controller/random.dart';
 import 'package:aniki/widgets/appbars/appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CustomSliverAppBar extends StatelessWidget {
-  // final double size;
-  final String imageUrl;
-  final String title;
-  final String genres;
+class CustomSliverAppBar extends ConsumerWidget {
   final Widget body;
-  // final model.Anime anime;
 
   const CustomSliverAppBar({
     super.key,
-    // required this.size,
-    required this.imageUrl,
-    required this.title,
-    required this.genres,
     required this.body,
-    // required this.anime,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    final animeData = ref.watch(randomControllerProv);
 
-    return NestedScrollView(
-      headerSliverBuilder: (context, isScrolled) => [
-        SliverAppBar(
-          pinned: true,
-          expandedHeight: size.height * 0.5,
-          flexibleSpace: CustomAppBar(
-            body: InkWell(
-              onTap: () {
-                // AppRoutes.goRouter.pushNamed(AppRoutes.detail, extra: anime);
-              },
-              child: Stack(
-                children: [
-                  FlexibleSpaceBar(
-                    background: Image.network(
-                      imageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (ctx, error, _) =>
-                          const Center(child: Icon(Icons.error)),
-                    ),
-                  ),
-                  FlexibleSpaceBar(
-                    background: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Stack(children: [
-                        Container(
-                          height: size.height * 0.4 / 1.5,
-                          width: size.width,
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color.fromARGB(175, 0, 0, 0),
-                                Color.fromARGB(0, 0, 0, 0)
-                              ],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                            ),
-                          ),
+    return animeData.when(
+      data: (data) {
+        final genres = data.genres.map((genres) => genres.name).join(', ');
+
+        return NestedScrollView(
+          headerSliverBuilder: (context, isScrolled) => [
+            SliverAppBar(
+              // pinned: true,
+              expandedHeight: size.height * 0.5,
+              flexibleSpace: CustomAppBar(
+                body: InkWell(
+                  onTap: () {
+                    AppRoutes.goRouter
+                        .pushNamed(AppRoutes.detail, extra: data.id.toString());
+                  },
+                  child: Stack(
+                    children: [
+                      FlexibleSpaceBar(
+                        background: Image.network(
+                          data.images,
+                          fit: BoxFit.cover,
+                          errorBuilder: (ctx, error, _) =>
+                              const Center(child: Icon(Icons.error)),
                         ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                            size.width * 0.05,
-                            size.height * 0.12,
-                            size.width * 0.25,
-                            0,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
+                      ),
+                      FlexibleSpaceBar(
+                        background: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Stack(
                             children: [
-                              Text(
-                                title,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: size.height * 0.04,
-                                  color: Colors.white,
+                              Container(
+                                height: size.height,
+                                width: size.width,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(175, 0, 0, 0),
+                                      Color.fromARGB(0, 0, 0, 0)
+                                    ],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                  ),
                                 ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                               ),
-                              Text(
-                                genres,
-                                style: const TextStyle(color: Colors.white),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                  size.width * 0.05,
+                                  0,
+                                  size.width * 0.25,
+                                  size.height * 0.05,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      data.title,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: size.height * h1,
+                                        color: Colors.white,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      genres,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: size.height * h2,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      ]),
-                    ),
-                  )
-                ],
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ],
-      body: body,
+          ],
+          body: body,
+        );
+      },
+      error: (error, stackTrace) => Center(
+        child: Text(error.toString()),
+      ),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

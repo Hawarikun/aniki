@@ -1,5 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton(
@@ -42,16 +43,33 @@ class AddListButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return TextButton.icon(
-      style: TextButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: size.width * 0.02,
+        vertical: size.width * 0.015,
       ),
-      onPressed: () {},
-      label: Text(
-        "My List",
-        style: TextStyle(color: Colors.white, fontSize: size.height * h2),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(25),
       ),
-      icon: Icon(Icons.add, color: Colors.white, size: size.height * h1),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.add,
+            color: Colors.white,
+            size: size.height * h2,
+          ),
+          Gap(size.width * 0.015),
+          Text(
+            "My List",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: size.height * p1,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

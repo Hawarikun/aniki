@@ -220,13 +220,13 @@ class FilterGeneral extends ConsumerWidget {
                 selected: selectedOrder == ""
                     ? order.first == order[index]
                     : selectedOrder == "title" && sort == "asc"
-                        ? order[0] == order[index]
+                        ? order[1] == order[index]
                         : selectedOrder == "title" && sort == "desc"
-                            ? order[1] == order[index]
+                            ? order[2] == order[index]
                             : selectedOrder == "episodes"
-                                ? order[2] == order[index]
+                                ? order[3] == order[index]
                                 : selectedOrder == "start_date"
-                                    ? order[3] == order[index]
+                                    ? order[4] == order[index]
                                     : isSelected,
                 onSelected: (value) {
                   // Pastikan satu chip selalu dipilih

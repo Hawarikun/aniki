@@ -11,9 +11,6 @@ class HomeFragment extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return CustomSliverAppBar(
-      imageUrl: "https://picsum.photos/200/300",
-      title: "Whats",
-      genres: "genres",
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

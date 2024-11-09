@@ -2,6 +2,7 @@ import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/widgets/button.dart';
+import 'package:aniki/widgets/images/content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -18,7 +19,6 @@ class AnimeIndexTileCard extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        // size.width * 0.05,
         size.width * 0,
         0,
         size.width * 0,
@@ -34,42 +34,7 @@ class AnimeIndexTileCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: size.width * 0.3,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(size.width * 0.025),
-                  color: Colors.grey.shade300,
-                  image: DecorationImage(
-                    image: NetworkImage(anime.images),
-                    fit: BoxFit.fill,
-                    onError: (ctx, error) =>
-                        const Center(child: Icon(Icons.error)),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(size.width * 0.02),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(size.width * 0.0125),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text(
-                          anime.score.toString(),
-                          style: TextStyle(
-                            fontSize: size.height * h2,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              ImageContent(imageUrl: anime.images, ratingScore: anime.score),
               Gap(size.width * 0.025),
               Expanded(
                 child: Column(
@@ -81,24 +46,24 @@ class AnimeIndexTileCard extends StatelessWidget {
                       anime.title,
                       maxLines: 2,
                       style: TextStyle(
-                        fontSize: size.height * h1,
+                        fontSize: size.height * h2,
                         fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     // Gap(size.height * 0.01),
                     Text(
-                      "${anime.year.toString()} | ${anime.type}",
+                      "${anime.year.toString()} | ${anime.season} | ${anime.type} ",
                       maxLines: 2,
                       style: TextStyle(
-                        fontSize: size.height * h2,
+                        fontSize: size.height * p1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
                       "Genre : $genres",
                       style: TextStyle(
-                        fontSize: size.height * h2,
+                        fontSize: size.height * p1,
                       ),
                     ),
                     const AddListButton()

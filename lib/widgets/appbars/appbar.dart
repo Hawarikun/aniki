@@ -3,8 +3,6 @@ import 'package:aniki/core/config/router.dart';
 import 'package:flutter/material.dart';
 import 'package:svg_flutter/svg.dart';
 
-
-
 class CustomAppBar extends StatelessWidget {
   final Widget body;
 
@@ -21,12 +19,16 @@ class CustomAppBar extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
-                  size.width * 0.05, size.height * 0, size.width * 0.05, 0),
+                size.width * 0.05,
+                size.height * 0,
+                size.width * 0.05,
+                0,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: size.width * 0.1,
+                    width: size.width * 0.08,
                     child: SvgPicture.asset(appLogo),
                   ),
                   Row(

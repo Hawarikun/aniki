@@ -34,9 +34,9 @@ class SearchAnimeRepository {
   }
 }
 
-final searchAnimeRepoProv = Provider((ref) {
-  final api = SearchApi();
-  return SearchAnimeRepository(
-    api,
-  );
-});
+final searchAnimeRepoProv = Provider(
+  (ref) {
+    final api = SearchApi();
+    return SearchAnimeRepository(api);
+  },
+);

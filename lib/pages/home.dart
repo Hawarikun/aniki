@@ -16,17 +16,15 @@ class HomePage extends ConsumerWidget {
     final pageController = ref.watch(pageControllerProvider);
 
     return Scaffold(
-      body: SafeArea(
-        child: PageView(
-          controller: pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            HomeFragment(),
-            Center(
-              child: Text("Settings"),
-            )
-          ],
-        ),
+      body: PageView(
+        controller: pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          HomeFragment(),
+          Center(
+            child: Text("Settings"),
+          )
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
