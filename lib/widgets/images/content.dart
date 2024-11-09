@@ -16,7 +16,7 @@ class ImageContent extends StatelessWidget {
 
     return Container(
       width: size.width * 0.275,
-      height: size.width * 0.4,
+      height: size.width * 0.39,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
         color: Colors.grey.shade300,

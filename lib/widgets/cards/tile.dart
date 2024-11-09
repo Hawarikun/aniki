@@ -17,62 +17,59 @@ class AnimeIndexTileCard extends StatelessWidget {
 
     final genres = anime.genres.map((genres) => genres.name).join(', ');
 
-    return Padding(
-      padding: EdgeInsets.fromLTRB(
-        size.width * 0,
-        0,
-        size.width * 0,
-        size.height * 0.025,
-      ),
-      child: InkWell(
-        onTap: () {
-          AppRoutes.goRouter
-              .pushNamed(AppRoutes.detail, extra: anime.id.toString());
-        },
-        child: SizedBox(
-          height: size.width * 0.425,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ImageContent(imageUrl: anime.images, ratingScore: anime.score),
-              Gap(size.width * 0.025),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      anime.title,
-                      maxLines: 2,
-                      style: TextStyle(
-                        fontSize: size.height * h2,
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis,
+    return InkWell(
+      onTap: () {
+        AppRoutes.goRouter
+            .pushNamed(AppRoutes.detail, extra: anime.id.toString());
+      },
+      child: Column(
+        children: [
+          SizedBox(
+            height: size.width * 0.39,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ImageContent(imageUrl: anime.images, ratingScore: anime.score),
+                Gap(size.width * 0.025),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        anime.title,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: size.height * h2,
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    // Gap(size.height * 0.01),
-                    Text(
-                      "${anime.year.toString()} | ${anime.season} | ${anime.type} ",
-                      maxLines: 2,
-                      style: TextStyle(
-                        fontSize: size.height * p1,
-                        overflow: TextOverflow.ellipsis,
+                      // Gap(size.height * 0.01),
+                      Text(
+                        "${anime.year.toString()} | ${anime.season} | ${anime.type} ",
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: size.height * p1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "Genre : $genres",
-                      style: TextStyle(
-                        fontSize: size.height * p1,
+                      Text(
+                        "Genre : $genres",
+                        style: TextStyle(
+                          fontSize: size.height * p1,
+                        ),
                       ),
-                    ),
-                    const AddListButton()
-                  ],
-                ),
-              )
-            ],
+                      const AddListButton()
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
+          Gap(size.height * 0.01),
+        ],
       ),
     );
   }

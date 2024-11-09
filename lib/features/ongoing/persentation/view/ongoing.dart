@@ -28,7 +28,7 @@ class OngoingList extends ConsumerWidget {
           padding: EdgeInsets.fromLTRB(
             size.width * 0.03,
             0,
-            size.width * 0.05,
+            size.width * 0.03,
             size.height * 0.02,
           ),
           child: Row(

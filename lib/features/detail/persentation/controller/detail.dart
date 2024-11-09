@@ -1,6 +1,5 @@
 import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/features/detail/data/detail.dart';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -41,8 +40,5 @@ final animeDetailControllerProv = AutoDisposeStateNotifierProviderFamily<
   params,
 ) {
   final repo = ref.read(animeDetailRepoProv);
-  return AnimeDetailController(
-    repo,
-    params,
-  );
+  return AnimeDetailController(repo, params);
 });

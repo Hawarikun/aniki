@@ -12,19 +12,6 @@ class ListAnimeIndexCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    // return SizedBox(
-    //   height: size.width * 0.5,
-    //   child: ListView.builder(
-    //     scrollDirection: Axis.horizontal,
-    //     itemCount: data.length,
-    //     itemBuilder: (context, index) {
-    //       final anime = data[index];
-    //       return AnimeIndexCard(anime: anime);
-    //     },
-    //   ),
-    // );
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
