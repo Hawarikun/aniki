@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:aniki/core/config/assets.dart';
 import 'package:aniki/core/config/router.dart';
 import 'package:flutter/material.dart';
@@ -19,39 +21,64 @@ class CustomAppBar extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
-                size.width * 0.05,
-                size.height * 0,
-                size.width * 0.05,
+                size.width * 0.03,
+                size.height * 0.01,
+                size.width * 0.03,
                 0,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: size.width * 0.08,
-                    child: SvgPicture.asset(appLogo),
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          AppRoutes.goRouter.pushNamed(AppRoutes.search);
-                        },
-                        icon: const Icon(
-                          Icons.search,
-                          color: Colors.white,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(50)),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 5),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(
+                      size.width * 0.03,
+                      0,
+                      size.width * 0.015,
+                      0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.black
+                          .withOpacity(0.01), // Semi-transparent white
+                      borderRadius: const BorderRadius.all(Radius.circular(50)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.notifications_none_outlined,
-                          color: Colors.white,
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: size.width * 0.08,
+                          child: SvgPicture.asset(appLogo),
                         ),
-                      )
-                    ],
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                AppRoutes.goRouter.pushNamed(AppRoutes.search);
+                              },
+                              icon: const Icon(
+                                Icons.search,
+                                color: Colors.white,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.notifications_none_outlined,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
             ),
           )

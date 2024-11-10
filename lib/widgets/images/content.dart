@@ -29,11 +29,14 @@ class ImageContent extends StatelessWidget {
             //   onError: (ctx, error) => const Center(child: Icon(Icons.error)),
             // ),
           ),
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: BoxFit.cover,
-            errorWidget: (context, url, error) =>
-                const Center(child: Icon(Icons.error)),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.cover,
+              errorWidget: (context, url, error) =>
+                  const Center(child: Icon(Icons.error)),
+            ),
           ),
         ),
         Padding(
