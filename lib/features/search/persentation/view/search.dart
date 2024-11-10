@@ -6,7 +6,7 @@ import 'package:aniki/features/search/data/search.dart';
 import 'package:aniki/features/search/persentation/view/filter.dart';
 import 'package:aniki/widgets/cards/tile.dart';
 import 'package:aniki/widgets/shimmers/tile.dart';
-import 'package:aniki/widgets/textformfield.dart';
+import 'package:aniki/widgets/forms/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -38,11 +38,6 @@ class SearchPageState extends ConsumerState<SearchPage> {
     final searchController = ref.read(searchControllerProvider);
     searchController.addListener(() {
       ref.read(pagingControllerProvider).refresh();
-      // final pagingController =
-      //     ref.read(pagingControllerProvider);
-      // pagingController.addPageRequestListener((pageKey) {
-      //   fetchPage(pageKey);
-      // }); // Trigger new search
     });
 
     final pagingController = ref.read(pagingControllerProvider);
@@ -51,10 +46,6 @@ class SearchPageState extends ConsumerState<SearchPage> {
     });
   }
 
-  // void refreshSearch() {
-  //   final pagingController = ref.read(pagingControllerProvider);
-  //   pagingController.refresh();
-  // }
 
   Future<void> fetchPage(int pageKey) async {
     final searchController = ref.read(searchControllerProvider);
@@ -118,7 +109,7 @@ class SearchPageState extends ConsumerState<SearchPage> {
                       onPressed: () => AppRoutes.goRouter.pop(),
                       icon: const Icon(Icons.arrow_back)),
                   Expanded(
-                    child: CustomTextFormField(
+                    child: SearchForm(
                       controller: searchController,
                       hintText: "Search",
                       inputType: TextInputType.text,
@@ -230,41 +221,6 @@ class SearchPageState extends ConsumerState<SearchPage> {
                             ),
                           ),
                         ),
-                        // child: searchRepo.when(
-                        //   data: (data) {
-                        //     return ListView.builder(
-                        //       itemCount: data.length,
-                        //       itemBuilder: (context, index) {
-                        //         final anime = data[index];
-                        //         if (data.isNotEmpty) {
-                        //           Future(
-                        //             () {
-                        //               ref
-                        //                   .read(resultCountProvider.notifier)
-                        //                   .state = data.length;
-                        //             },
-                        //           );
-                        //         }
-
-                        //         return AnimeIndexTileCard(
-                        //           anime: anime,
-                        //         );
-                        //       },
-                        //     );
-                        //   },
-                        //   error: (error, stackTrace) {
-                        //     Future(
-                        //       () {
-                        //         ref.read(resultCountProvider.notifier).state =
-                        //             0;
-                        //       },
-                        //     );
-                        //     return Text(error.toString());
-                        //   },
-                        //   loading: () => const Center(
-                        //     child: CircularProgressIndicator(),
-                        //   ),
-                        // ),
                       ),
                     ),
                   ],

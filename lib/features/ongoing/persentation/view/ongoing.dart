@@ -1,8 +1,10 @@
+import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/features/ongoing/persentation/controller/ongoing.dart';
-import 'package:aniki/widgets/button.dart';
+import 'package:aniki/pages/more_anime.dart';
+import 'package:aniki/widgets/buttons/text_button.dart';
 import 'package:aniki/widgets/cards/card.dart';
-import 'package:aniki/widgets/shimmers/card.dart';
+import 'package:aniki/widgets/shimmers/content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -43,7 +45,11 @@ class OngoingList extends ConsumerWidget {
                 ),
               ),
               CustomTextButton(
-                onTap: () {},
+                onTap: () {
+                  ref.read(typeAnimeProvider.notifier).state = "ongoing";
+
+                  AppRoutes.goRouter.pushNamed(AppRoutes.more);
+                },
                 label: "See all",
                 color: Theme.of(context).colorScheme.primary,
               ),

@@ -1,6 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
-import 'package:aniki/features/detail/persentation/controller/character.dart';
-import 'package:aniki/widgets/button.dart';
+import 'package:aniki/features/detail/persentation/controller/cast.dart';
+import 'package:aniki/widgets/buttons/text_button.dart';
 import 'package:aniki/widgets/images/character.dart';
 import 'package:aniki/widgets/shimmers/character.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +15,12 @@ class CharactersInfo extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-    final charData = ref.watch(
-      animeCharControllerProv(
-        AnimeCharParams(id: id),
+    final castData = ref.watch(
+      animeCastControllerProv(
+        AnimeCastParams(id: id),
       ),
     );
-    return charData.when(
+    return castData.when(
       data: (data) {
         return Visibility(
           visible: data.isNotEmpty,
@@ -39,14 +39,14 @@ class CharactersInfo extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Characters & VA",
+                      "Cast",
                       style: TextStyle(
                         fontSize: size.height * h1,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     CustomTextButton(
-                      label: "See all",
+                      label: "More cast",
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ],

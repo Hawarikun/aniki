@@ -12,7 +12,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final size = MediaQuery.of(context).size;
-    final currentIndex = ref.watch(currentIndexProvider);
+    // final currentIndex = ref.watch(currentIndexProvider);
     final pageController = ref.watch(pageControllerProvider);
 
     return Scaffold(
@@ -26,23 +26,23 @@ class HomePage extends ConsumerWidget {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) {
-          pageController.jumpToPage(index);
-          ref.read(currentIndexProvider.notifier).state = index;
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
-          ),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: currentIndex,
+      //   onTap: (index) {
+      //     pageController.jumpToPage(index);
+      //     ref.read(currentIndexProvider.notifier).state = index;
+      //   },
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: "Home",
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.settings),
+      //       label: "Settings",
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

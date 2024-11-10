@@ -1,18 +1,18 @@
-class AnimeChar {
+class AnimeCast {
   Character character;
   String role;
   int favorites;
   List<VoiceActor> voiceActors;
 
-  AnimeChar({
+  AnimeCast({
     required this.character,
     required this.role,
     required this.favorites,
     required this.voiceActors,
   });
 
-  factory AnimeChar.fromJson(Map<String, dynamic> json) {
-    return AnimeChar(
+  factory AnimeCast.fromJson(Map<String, dynamic> json) {
+    return AnimeCast(
       character: Character.fromJson(json["character"]),
       role: json["role"],
       favorites: json["favorites"],

@@ -19,6 +19,7 @@ class Anime {
   int? year;
   List<Studios> studios;
   List<Genre> genres;
+  String? aried;
 
   Anime({
     required this.id,
@@ -41,6 +42,7 @@ class Anime {
     this.year,
     required this.studios,
     required this.genres,
+    this.aried
   });
   factory Anime.fromJson(Map<String, dynamic> map) => Anime(
         id: map["mal_id"],
@@ -73,6 +75,7 @@ class Anime {
             (x) => Genre.fromJson(x),
           ),
         ),
+        aried: map["aired"]["string"],
       );
 }
 

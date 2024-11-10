@@ -1,6 +1,7 @@
 import 'package:aniki/features/detail/persentation/view/detail.dart';
 import 'package:aniki/features/search/persentation/view/search.dart';
 import 'package:aniki/pages/home.dart';
+import 'package:aniki/pages/more_anime.dart';
 import 'package:aniki/pages/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,7 @@ class AppRoutes {
   static const home = 'home';
   static const detail = 'detail';
   static const search = 'search';
+  static const more = 'more';
 
   static final goRouter = GoRouter(
     initialLocation: "/home",
@@ -20,11 +22,7 @@ class AppRoutes {
         name: splash,
         pageBuilder: _splashPageBuilder,
       ),
-      // GoRoute(
-      //   path: "/login",
-      //   name: login,
-      // pageBuilder :
-      // ),
+      GoRoute(path: "/more", name: more, pageBuilder: _morePageBuilder),
       GoRoute(
         path: "/home",
         name: home,
@@ -71,6 +69,12 @@ class AppRoutes {
   static Page _searchPageBuilder(context, state) {
     return transition(
       child: const SearchPage(),
+    );
+  }
+
+  static Page _morePageBuilder(context, state) {
+    return transition(
+      child: const MoreAnimePage(),
     );
   }
 

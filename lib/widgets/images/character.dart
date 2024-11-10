@@ -1,4 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CharacterImages extends StatelessWidget {
@@ -22,11 +23,17 @@ class CharacterImages extends StatelessWidget {
           height: size.width * 0.39,
           decoration: BoxDecoration(
             color: Colors.grey.shade300,
-            image: DecorationImage(
-              image: NetworkImage(imageUrl ?? ""),
-              fit: BoxFit.fill,
-              onError: (ctx, error) => const Center(child: Icon(Icons.error)),
-            ),
+            //   image: DecorationImage(
+            //     image: NetworkImage(imageUrl ?? ""),
+            //     fit: BoxFit.fill,
+            //     onError: (ctx, error) => const Center(child: Icon(Icons.error)),
+            //   ),
+          ),
+          child: CachedNetworkImage(
+            imageUrl: imageUrl ?? "",
+            fit: BoxFit.cover,
+            errorWidget: (context, url, error) =>
+                const Center(child: Icon(Icons.error)),
           ),
         ),
         Container(

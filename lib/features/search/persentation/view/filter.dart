@@ -2,7 +2,7 @@ import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/dummys/genres.dart';
 import 'package:aniki/features/search/persentation/controller/search.dart';
 import 'package:aniki/features/search/persentation/view/search.dart';
-import 'package:aniki/widgets/choice.dart';
+import 'package:aniki/widgets/buttons/choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';

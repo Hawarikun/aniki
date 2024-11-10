@@ -1,6 +1,7 @@
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/core/extensions/string.dart';
 import 'package:aniki/features/detail/persentation/controller/detail.dart';
-import 'package:aniki/features/detail/persentation/view/character.dart';
+import 'package:aniki/features/detail/persentation/view/cast.dart';
 import 'package:aniki/features/detail/persentation/view/news.dart';
 import 'package:aniki/features/detail/persentation/view/review.dart';
 import 'package:aniki/widgets/appbars/sliver.dart';
@@ -81,7 +82,7 @@ class DetailPage extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Gap(size.height * 0.015),
+                          // Gap(size.height * 0.015),
 
                           /// Title
                           Row(
@@ -106,6 +107,8 @@ class DetailPage extends ConsumerWidget {
                               ),
                             ],
                           ),
+                          // Gap(size.height * 0.015),
+
                           Row(
                             children: [
                               /// Score
@@ -161,7 +164,7 @@ class DetailPage extends ConsumerWidget {
 
                           /// Genres
                           Text(
-                            (genres.isNotEmpty) ? "Genders: $genres" : "-",
+                            (genres.isNotEmpty) ? "Genres : $genres" : "-",
                             style: TextStyle(
                               fontSize: size.height * p1,
                               fontWeight: FontWeight.bold,
@@ -169,20 +172,8 @@ class DetailPage extends ConsumerWidget {
                           ),
                           Gap(size.height * 0.03),
 
-                          /// More Information
-
                           /// Synopsis
                           Synopsis(synopsis: data.synopsis ?? "-"),
-                          Gap(size.height * 0.03),
-
-                          MoreInformation(
-                            source: data.source,
-                            studio: studios,
-                            season:
-                                "${data.season ?? "N/A"} ${data.year ?? "N/A"}",
-                            episodes:
-                                "${data.episodes ?? "N/A"}, ${data.duration ?? "N/A"}",
-                          ),
                           Gap(size.height * 0.03),
 
                           /// Trailer
@@ -191,23 +182,35 @@ class DetailPage extends ConsumerWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Thailer",
-                                  style: TextStyle(
-                                    fontSize: size.height * h1,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                // Text(
+                                //   "Thailer",
+                                //   style: TextStyle(
+                                //     fontSize: size.height * h1,
+                                //     fontWeight: FontWeight.bold,
+                                //   ),
+                                // ),
                                 Gap(size.height * 0.01),
                                 player,
-                                Gap(size.height * 0.01),
+                                Gap(size.height * 0.04),
                               ],
                             ),
                           ),
+
+                          /// More Information
+                          MoreInformation(
+                            source: data.source,
+                            studio: studios,
+                            season:
+                                "${data.season != null ? data.season!.capitalize() : "N/A"} ${data.year ?? "N/A"}",
+                            aired: data.aried ?? "N/A",
+                            episodes:
+                                "${data.episodes ?? "N/A"}, ${data.duration ?? "N/A"}",
+                            status: data.status,
+                          ),
+                          Gap(size.height * 0.05),
                         ],
                       ),
                     ),
-                    Gap(size.height * 0.03),
 
                     /// Characters
                     CharactersInfo(id: id),

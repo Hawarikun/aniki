@@ -1,5 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
-import 'package:aniki/widgets/button.dart';
+import 'package:aniki/widgets/buttons/text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';

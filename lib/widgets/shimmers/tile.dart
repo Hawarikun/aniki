@@ -79,8 +79,8 @@ class ListAnimeIndexSTileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      physics: const NeverScrollableScrollPhysics(),
       child: Column(
         children: List.generate(
           5,

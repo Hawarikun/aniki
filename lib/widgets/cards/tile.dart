@@ -1,7 +1,7 @@
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
-import 'package:aniki/widgets/button.dart';
+import 'package:aniki/widgets/buttons/bookmark.dart';
 import 'package:aniki/widgets/images/content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -61,7 +61,7 @@ class AnimeIndexTileCard extends StatelessWidget {
                           fontSize: size.height * p1,
                         ),
                       ),
-                      const AddListButton()
+                      const BookmarkButton()
                     ],
                   ),
                 )

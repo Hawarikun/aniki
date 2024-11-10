@@ -1,8 +1,8 @@
 import 'package:aniki/core/config/text_size.dart';
-import 'package:aniki/core/extensions/date_time.dart';
 import 'package:aniki/features/detail/persentation/controller/news.dart';
-import 'package:aniki/widgets/button.dart';
-import 'package:aniki/widgets/images/news.dart';
+import 'package:aniki/widgets/buttons/text_button.dart';
+import 'package:aniki/widgets/cards/news.dart';
+import 'package:aniki/widgets/shimmers/news.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -39,7 +39,7 @@ class AnimeNews extends ConsumerWidget {
                     ),
                   ),
                   CustomTextButton(
-                    label: "See all",
+                    label: "More Reviews",
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
@@ -51,38 +51,11 @@ class AnimeNews extends ConsumerWidget {
                   final news = data[index];
                   final imageUrl = news.images!.jpg!.imageUrl;
 
-                  return Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ImageNews(imageUrl: imageUrl ?? ""),
-                          Gap(size.width * 0.03),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  news.title ?? "N/A",
-                                  style: TextStyle(
-                                    fontSize: size.height * p1,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Gap(size.height * 0.005),
-                                Text(
-                                  "${news.date!.toMonthDayYear()} | ${news.comments ?? 0} Comments",
-                                  style: TextStyle(
-                                    fontSize: size.height * p1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Gap(size.height * 0.02),
-                    ],
+                  return NewsCard(
+                    imageUrl: imageUrl ?? "",
+                    title: news.title ?? "N/A",
+                    date: news.date!,
+                    comments: news.comments ?? 0,
                   );
                 },
               ),
@@ -94,9 +67,7 @@ class AnimeNews extends ConsumerWidget {
         return Text(error.toString());
       },
       loading: () {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const ListImageSNews();
       },
     );
   }

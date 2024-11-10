@@ -1,38 +1,36 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({
+class SearchForm extends StatelessWidget {
+  const SearchForm({
     super.key,
     required this.controller,
     required this.inputType,
     required this.hintText,
-    // required this.callBack,
-    this.isObsecure,
-    this.iconButton,
     this.maxLines,
-    this.radius,
+    // required this.callBack,
+    // this.isObsecure,
+    // this.iconButton,
+    // this.radius,
   });
 
   final TextEditingController controller;
   final TextInputType inputType;
   final String hintText;
-  // final String? Function(String?)? callBack;
-  final Widget? iconButton;
-  final bool? isObsecure;
   final int? maxLines;
-  final double? radius;
+  // final String? Function(String?)? callBack;
+  // final Widget? iconButton;
+  // final bool? isObsecure;
+  // final double? radius;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return TextFormField(
-      // autofocus: true,
       autocorrect: false,
       controller: controller,
       keyboardType: inputType,
-      obscureText: isObsecure ?? false,
       style: TextStyle(
         fontSize: size.height * h2,
       ),
@@ -65,6 +63,8 @@ class CustomTextFormField extends StatelessWidget {
         //   ),
         // ),
       ),
+      // autofocus: true,
+      // obscureText: isObsecure ?? false,
       // validator: callBack,
     );
   }

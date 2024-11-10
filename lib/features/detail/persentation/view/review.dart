@@ -1,7 +1,8 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/features/detail/persentation/controller/review.dart';
-import 'package:aniki/widgets/button.dart';
+import 'package:aniki/widgets/buttons/text_button.dart';
 import 'package:aniki/widgets/cards/review.dart';
+import 'package:aniki/widgets/shimmers/review.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -44,7 +45,7 @@ class AnimeReview extends ConsumerWidget {
                       ),
                     ),
                     CustomTextButton(
-                      label: "See all",
+                      label: "More Reviews",
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ],
@@ -80,14 +81,7 @@ class AnimeReview extends ConsumerWidget {
         );
       },
       loading: () {
-        return Center(
-          child: Column(
-            children: [
-              Gap(size.height * 0.02),
-              const CircularProgressIndicator(),
-            ],
-          ),
-        );
+        return const ListAnimeReviewS();
       },
     );
   }

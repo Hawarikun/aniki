@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ImageNews extends StatelessWidget {
@@ -17,11 +18,17 @@ class ImageNews extends StatelessWidget {
       decoration: BoxDecoration(
         // borderRadius: BorderRadius.circular(6),
         color: Colors.grey.shade300,
-        image: DecorationImage(
-          image: NetworkImage(imageUrl),
-          fit: BoxFit.fill,
-          onError: (ctx, error) => const Center(child: Icon(Icons.error)),
-        ),
+        // image: DecorationImage(
+        //   image: NetworkImage(imageUrl),
+        //   fit: BoxFit.fill,
+        //   onError: (ctx, error) => const Center(child: Icon(Icons.error)),
+        // ),
+      ),
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        fit: BoxFit.cover,
+        errorWidget: (context, url, error) =>
+            const Center(child: Icon(Icons.error)),
       ),
     );
   }

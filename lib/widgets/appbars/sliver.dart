@@ -2,6 +2,7 @@ import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/features/random/controller/random.dart';
 import 'package:aniki/widgets/appbars/appbar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,10 +37,10 @@ class CustomSliverAppBar extends ConsumerWidget {
                   child: Stack(
                     children: [
                       FlexibleSpaceBar(
-                        background: Image.network(
-                          data.images,
+                        background: CachedNetworkImage(
+                          imageUrl: data.images,
                           fit: BoxFit.cover,
-                          errorBuilder: (ctx, error, _) =>
+                          errorWidget: (ctx, error, _) =>
                               const Center(child: Icon(Icons.error)),
                         ),
                       ),
@@ -139,10 +140,10 @@ class CustomDetailSliverAppBar extends StatelessWidget {
             body: Stack(
               children: [
                 FlexibleSpaceBar(
-                  background: Image.network(
-                    url,
+                  background: CachedNetworkImage(
+                    imageUrl: url,
                     fit: BoxFit.cover,
-                    errorBuilder: (ctx, error, _) =>
+                    errorWidget: (ctx, error, _) =>
                         const Center(child: Icon(Icons.error)),
                   ),
                 ),
