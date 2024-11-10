@@ -1,7 +1,11 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/features/detail/persentation/controller/detail.dart';
 import 'package:aniki/features/detail/persentation/view/character.dart';
+import 'package:aniki/features/detail/persentation/view/news.dart';
+import 'package:aniki/features/detail/persentation/view/review.dart';
 import 'package:aniki/widgets/appbars/sliver.dart';
+import 'package:aniki/widgets/text/border_text.dart';
+import 'package:aniki/widgets/text/info.dart';
 import 'package:aniki/widgets/text/synopsis.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,7 +36,9 @@ class DetailPage extends ConsumerWidget {
     return Scaffold(
       body: detailAnime.when(
         data: (data) {
-          final genres = data.genres.map((genres) => genres.name).join(', ');
+          final genres = data.genres.map((genres) => genres.name).join('  •  ');
+          final studios =
+              data.studios.map((studios) => studios.name).join(', ');
 
           // Inisialisasi controller hanya jika youtubeId tidak null dan belum diinisialisasi
           if (data.trailer!.youtubeId != null) {
@@ -98,13 +104,6 @@ class DetailPage extends ConsumerWidget {
                                   size: size.height * 0.03,
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.share,
-                                  size: size.height * 0.03,
-                                ),
-                              ),
                             ],
                           ),
                           Row(
@@ -151,61 +150,39 @@ class DetailPage extends ConsumerWidget {
                               Gap(size.width * 0.03),
 
                               /// Rating
-                              Container(
-                                padding: EdgeInsets.all(size.width * 0.01),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  data.rating ?? "21+",
-                                  style: TextStyle(
-                                    fontSize: size.height * w4,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                ),
-                              ),
+                              BorderText(content: data.rating ?? "21+"),
                               Gap(size.width * 0.03),
 
                               /// Type
-                              Container(
-                                padding: EdgeInsets.all(size.width * 0.01),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  data.type,
-                                  style: TextStyle(
-                                    fontSize: size.height * w4,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                ),
-                              ),
+                              BorderText(content: data.type),
                             ],
                           ),
-                          Gap(size.height * 0.02),
+                          Gap(size.height * 0.03),
 
                           /// Genres
                           Text(
-                            (genres.isNotEmpty) ? "Genre : $genres" : "-",
+                            (genres.isNotEmpty) ? "Genders: $genres" : "-",
                             style: TextStyle(
                               fontSize: size.height * p1,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Gap(size.height * 0.02),
+                          Gap(size.height * 0.03),
+
+                          /// More Information
 
                           /// Synopsis
                           Synopsis(synopsis: data.synopsis ?? "-"),
+                          Gap(size.height * 0.03),
+
+                          MoreInformation(
+                            source: data.source,
+                            studio: studios,
+                            season:
+                                "${data.season ?? "N/A"} ${data.year ?? "N/A"}",
+                            episodes:
+                                "${data.episodes ?? "N/A"}, ${data.duration ?? "N/A"}",
+                          ),
                           Gap(size.height * 0.03),
 
                           /// Trailer
@@ -227,13 +204,22 @@ class DetailPage extends ConsumerWidget {
                               ],
                             ),
                           ),
-                          Gap(size.height * 0.02),
                         ],
                       ),
                     ),
+                    Gap(size.height * 0.03),
 
                     /// Characters
                     CharactersInfo(id: id),
+                    Gap(size.height * 0.03),
+
+                    /// Reviews
+                    AnimeReview(id: id),
+                    Gap(size.height * 0.03),
+
+                    /// News
+                    AnimeNews(id: id),
+                    Gap(size.height * 0.03),
                   ],
                 ),
               ),

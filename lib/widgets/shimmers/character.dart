@@ -1,4 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
@@ -33,6 +34,7 @@ class ListCharacterSIndex extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.fromLTRB(
@@ -41,12 +43,21 @@ class ListCharacterSIndex extends StatelessWidget {
             size.width * 0.03,
             0,
           ),
-          child: Text(
-            "Characters & VA",
-            style: TextStyle(
-              fontSize: size.height * h1,
-              fontWeight: FontWeight.bold,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Characters & VA",
+                style: TextStyle(
+                  fontSize: size.height * h1,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              CustomTextButton(
+                label: "See all",
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ],
           ),
         ),
         Gap(size.height * 0.02),

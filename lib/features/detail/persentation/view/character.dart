@@ -1,5 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/features/detail/persentation/controller/character.dart';
+import 'package:aniki/widgets/button.dart';
 import 'package:aniki/widgets/images/character.dart';
 import 'package:aniki/widgets/shimmers/character.dart';
 import 'package:flutter/material.dart';
@@ -34,12 +35,21 @@ class CharactersInfo extends ConsumerWidget {
                   size.width * 0.03,
                   0,
                 ),
-                child: Text(
-                  "Characters & VA",
-                  style: TextStyle(
-                    fontSize: size.height * h1,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Characters & VA",
+                      style: TextStyle(
+                        fontSize: size.height * h1,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    CustomTextButton(
+                      label: "See all",
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ],
                 ),
               ),
               Gap(size.height * 0.02),
@@ -49,55 +59,61 @@ class CharactersInfo extends ConsumerWidget {
                   children: [
                     /// Character
                     Row(
-                      children: List.generate(
-                        data.length,
-                        (index) {
-                          final char = data[index];
-                          return Row(
-                            children: [
-                              Gap(size.width * 0.025),
-                              CharacterImages(
-                                imageUrl: char.character.images.jpg.imageUrl,
-                                name: char.character.name,
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                      children: [
+                        ...List.generate(
+                          data.length > 10 ? 10 : data.length,
+                          (index) {
+                            final char = data[index];
+                            return Row(
+                              children: [
+                                Gap(size.width * 0.025),
+                                CharacterImages(
+                                  imageUrl: char.character.images.jpg.imageUrl,
+                                  name: char.character.name,
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                        Gap(size.width * 0.025),
+                      ],
                     ),
                     Gap(size.height * 0.01),
 
                     /// VA
                     Row(
-                      children: List.generate(
-                        data.length,
-                        (index) {
-                          final char = data[index];
-                          if (char.voiceActors.isNotEmpty) {
-                            final va = char.voiceActors.first;
+                      children: [
+                        ...List.generate(
+                          data.length > 10 ? 10 : data.length,
+                          (index) {
+                            final char = data[index];
+                            if (char.voiceActors.isNotEmpty) {
+                              final va = char.voiceActors.first;
 
-                            return Row(
-                              children: [
-                                Gap(size.width * 0.025),
-                                CharacterImages(
-                                  imageUrl: va.person.images.jpg.imageUrl,
-                                  name: va.person.name,
-                                ),
-                              ],
-                            );
-                          } else {
-                            return Row(
-                              children: [
-                                Gap(size.width * 0.025),
-                                CharacterImages(
-                                  imageUrl: '',
-                                  name: char.character.name,
-                                ),
-                              ],
-                            );
-                          }
-                        },
-                      ),
+                              return Row(
+                                children: [
+                                  Gap(size.width * 0.025),
+                                  CharacterImages(
+                                    imageUrl: va.person.images.jpg.imageUrl,
+                                    name: va.person.name,
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Row(
+                                children: [
+                                  Gap(size.width * 0.025),
+                                  CharacterImages(
+                                    imageUrl: '',
+                                    name: char.character.name,
+                                  ),
+                                ],
+                              );
+                            }
+                          },
+                        ),
+                        Gap(size.width * 0.025),
+                      ],
                     )
                   ],
                 ),

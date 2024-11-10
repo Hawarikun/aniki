@@ -35,10 +35,12 @@ class AnimeDetailParams extends Equatable {
 }
 
 final animeDetailControllerProv = AutoDisposeStateNotifierProviderFamily<
-    AnimeDetailController, AsyncValue<Anime>, AnimeDetailParams>((
-  ref,
-  params,
-) {
-  final repo = ref.read(animeDetailRepoProv);
-  return AnimeDetailController(repo, params);
-});
+    AnimeDetailController, AsyncValue<Anime>, AnimeDetailParams>(
+  (
+    ref,
+    params,
+  ) {
+    final repo = ref.read(animeDetailRepoProv);
+    return AnimeDetailController(repo, params);
+  },
+);

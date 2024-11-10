@@ -95,11 +95,19 @@ class CustomDetailAppBar extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(
-                    Icons.cast_rounded,
+                  icon: Icon(
+                    Icons.share,
+                    size: size.height * 0.03,
                     color: Colors.white,
                   ),
                 ),
+                // IconButton(
+                //   onPressed: () {},
+                //   icon: const Icon(
+                //     Icons.cast_rounded,
+                //     color: Colors.white,
+                //   ),
+                // ),
               ],
             ),
           ),

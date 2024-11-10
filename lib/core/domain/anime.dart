@@ -10,7 +10,7 @@ class Anime {
   String source;
   int? episodes;
   String status;
-  // String duration;
+  String? duration;
   String? rating;
   double? score;
   String? synopsis;
@@ -32,7 +32,7 @@ class Anime {
     required this.source,
     this.episodes,
     required this.status,
-    // required this.duration,
+    this.duration,
     this.rating,
     this.score,
     this.synopsis,
@@ -54,7 +54,7 @@ class Anime {
         source: map["source"],
         episodes: map["episodes"] ?? 0,
         status: map["status"],
-        // duration: map["duration"],
+        duration: map["duration"] ?? "N/A",
         rating: map["rating"] ?? "N/A",
         score: map['score'] is int
             ? (map['score'] as int).toDouble()
