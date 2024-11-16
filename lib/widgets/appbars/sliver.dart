@@ -75,7 +75,7 @@ class CustomSliverAppBar extends ConsumerWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      data.title,
+                                      data.title ,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: size.height * h1,

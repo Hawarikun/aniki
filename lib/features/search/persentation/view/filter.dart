@@ -9,8 +9,8 @@ import 'package:gap/gap.dart';
 
 // final genresProvider = StateProvider<String>((ref) => "");
 final typeProvider = StateProvider<String>((ref) => "");
-final orderByProvider = StateProvider<String>((ref) => "title");
-final sortProvider = StateProvider<String>((ref) => "asc");
+final orderByProvider = StateProvider<String>((ref) => "");
+final sortProvider = StateProvider<String>((ref) => "");
 final statusProvider = StateProvider<String>((ref) => "");
 final currentIndexProvider = StateProvider<int>((ref) => 0);
 final genresProvider = StateProvider<List<int>>((ref) => []);

@@ -8,16 +8,16 @@ part of 'anime.dart';
 
 Anime _$AnimeFromJson(Map<String, dynamic> json) => Anime(
       mal_id: (json['mal_id'] as num).toInt(),
-      url: json['url'] as String,
+      url: json['url'] as String?,
       images: Images.fromJson(json['images'] as Map<String, dynamic>),
       trailer: Trailer.fromJson(json['trailer'] as Map<String, dynamic>),
       title: json['title'] as String,
       title_english: json['title_english'] as String?,
       title_japanese: json['title_japanese'] as String?,
       type: json['type'] as String,
-      source: json['source'] as String,
+      source: json['source'] as String?,
       episodes: (json['episodes'] as num?)?.toInt(),
-      status: json['status'] as String,
+      status: json['status'] as String?,
       duration: json['duration'] as String?,
       rating: json['rating'] as String?,
       score: (json['score'] as num?)?.toDouble(),
@@ -32,6 +32,7 @@ Anime _$AnimeFromJson(Map<String, dynamic> json) => Anime(
           .map((e) => Genre.fromJson(e as Map<String, dynamic>))
           .toList(),
       aired: Aired.fromJson(json['aired'] as Map<String, dynamic>),
+      broadcast: Broadcast.fromJson(json['broadcast'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AnimeToJson(Anime instance) => <String, dynamic>{
@@ -56,6 +57,7 @@ Map<String, dynamic> _$AnimeToJson(Anime instance) => <String, dynamic>{
       'studios': instance.studios?.map((e) => e.toJson()).toList(),
       'genres': instance.genres.map((e) => e.toJson()).toList(),
       'aired': instance.aired.toJson(),
+      'broadcast': instance.broadcast.toJson(),
     };
 
 Images _$ImagesFromJson(Map<String, dynamic> json) => Images(
@@ -97,8 +99,8 @@ Map<String, dynamic> _$WebpToJson(Webp instance) => <String, dynamic>{
     };
 
 Genre _$GenreFromJson(Map<String, dynamic> json) => Genre(
-      mal_id: (json['mal_id'] as num).toInt(),
-      name: json['name'] as String,
+      mal_id: (json['mal_id'] as num?)?.toInt(),
+      name: json['name'] as String?,
     );
 
 Map<String, dynamic> _$GenreToJson(Genre instance) => <String, dynamic>{
@@ -151,10 +153,10 @@ Map<String, dynamic> _$StudiosToJson(Studios instance) => <String, dynamic>{
     };
 
 Aired _$AiredFromJson(Map<String, dynamic> json) => Aired(
-      from: json['from'] as String,
+      from: json['from'] as String?,
       to: json['to'] as String?,
       prop: Prop.fromJson(json['prop'] as Map<String, dynamic>),
-      string: json['string'] as String,
+      string: json['string'] as String?,
     );
 
 Map<String, dynamic> _$AiredToJson(Aired instance) => <String, dynamic>{
@@ -166,9 +168,7 @@ Map<String, dynamic> _$AiredToJson(Aired instance) => <String, dynamic>{
 
 Prop _$PropFromJson(Map<String, dynamic> json) => Prop(
       from: From.fromJson(json['from'] as Map<String, dynamic>),
-      to: json['to'] == null
-          ? null
-          : To.fromJson(json['to'] as Map<String, dynamic>),
+      to: To.fromJson(json['to'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PropToJson(Prop instance) => <String, dynamic>{
@@ -177,9 +177,9 @@ Map<String, dynamic> _$PropToJson(Prop instance) => <String, dynamic>{
     };
 
 From _$FromFromJson(Map<String, dynamic> json) => From(
-      day: (json['day'] as num).toInt(),
-      month: (json['month'] as num).toInt(),
-      year: (json['year'] as num).toInt(),
+      day: (json['day'] as num?)?.toInt(),
+      month: (json['month'] as num?)?.toInt(),
+      year: (json['year'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$FromToJson(From instance) => <String, dynamic>{
@@ -198,4 +198,18 @@ Map<String, dynamic> _$ToToJson(To instance) => <String, dynamic>{
       'day': instance.day,
       'month': instance.month,
       'year': instance.year,
+    };
+
+Broadcast _$BroadcastFromJson(Map<String, dynamic> json) => Broadcast(
+      day: json['day'] as String?,
+      time: json['time'] as String?,
+      timezone: json['timezone'] as String?,
+      string: json['string'] as String?,
+    );
+
+Map<String, dynamic> _$BroadcastToJson(Broadcast instance) => <String, dynamic>{
+      'day': instance.day,
+      'time': instance.time,
+      'timezone': instance.timezone,
+      'string': instance.string,
     };

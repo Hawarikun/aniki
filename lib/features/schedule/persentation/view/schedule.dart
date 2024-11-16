@@ -1,4 +1,4 @@
-import 'package:aniki/features/schedule/persentation/controller/schedule.dart';
+import 'package:aniki/features/ongoing/persentation/controller/ongoing.dart';
 import 'package:aniki/widgets/cards/card.dart';
 import 'package:aniki/widgets/shimmers/content.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +13,12 @@ class DaySchedule extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     final scheduleData =
-        ref.watch(scheduleControllerProv(ScheduleParams(day: day)));
+        ref.watch(ongoingControllerProv(const OngoingParams(limit: 25)));
 
     return scheduleData.when(
       data: (data) {
+        final broadcast = data.where((c) => c.broadcast.day == day).toList();
+
         return GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -24,9 +26,9 @@ class DaySchedule extends ConsumerWidget {
           ),
           children: [
             ...List.generate(
-              data.length,
+              broadcast.length,
               (index) => AnimeIndexCard(
-                anime: data[index],
+                anime: broadcast[index],
               ),
             ),
           ],

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-final selectedDayProv = StateProvider<String>((ref) => "sunday");
+final selectedDayProv = StateProvider<String>((ref) => "Sundays");
 
 class ScheduleFragment extends ConsumerWidget {
   const ScheduleFragment({super.key});
@@ -15,15 +15,13 @@ class ScheduleFragment extends ConsumerWidget {
     final selectedDay = ref.watch(selectedDayProv);
 
     List<String> days = [
-      "sunday",
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-      "Unknown",
-      "Other"
+      "Sundays",
+      "Mondays",
+      "Tuesdays",
+      "Wednesdays",
+      "Thursdays",
+      "Fridays",
+      "Saturdays",
     ];
 
     return SafeArea(
@@ -53,7 +51,9 @@ class ScheduleFragment extends ConsumerWidget {
                 child: Text(
                   "Broadcast Schedule",
                   style: TextStyle(
-                      fontSize: size.height * h1, fontWeight: FontWeight.bold),
+                    fontSize: size.height * h1,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -101,6 +101,7 @@ class ScheduleFragment extends ConsumerWidget {
                                         width: 1,
                                       )
                                     : null,
+                                borderRadius: BorderRadius.circular(5),
                               ),
                               child: Text(
                                 day,

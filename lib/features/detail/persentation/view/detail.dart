@@ -89,7 +89,7 @@ class DetailPage extends ConsumerWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  data.title,
+                                  data.title ,
                                   maxLines: 1,
                                   style: TextStyle(
                                     fontSize: size.height * h1,
@@ -198,14 +198,14 @@ class DetailPage extends ConsumerWidget {
 
                           /// More Information
                           MoreInformation(
-                            source: data.source,
+                            source: data.source ?? "N/A",
                             studio: studios,
                             season:
                                 "${data.season != null ? data.season!.capitalize() : "N/A"} ${data.year ?? "N/A"}",
-                            aired: data.aired.string,
+                            aired: data.aired.string ?? "N/A",
                             episodes:
                                 "${data.episodes ?? "N/A"}, ${data.duration ?? "N/A"}",
-                            status: data.status,
+                            status: data.status ?? "N/A",
                           ),
                           Gap(size.height * 0.05),
                         ],

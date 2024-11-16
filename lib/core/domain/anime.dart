@@ -7,16 +7,16 @@ part 'anime.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Anime {
   final int mal_id;
-  final String url;
+  final String? url;
   final Images images;
   final Trailer trailer;
   final String title;
   final String? title_english;
   final String? title_japanese;
   final String type;
-  final String source;
+  final String? source;
   final int? episodes;
-  final String status;
+  final String? status;
   final String? duration;
   final String? rating;
   final double? score;
@@ -27,6 +27,7 @@ class Anime {
   final List<Studios>? studios;
   final List<Genre> genres;
   final Aired aired;
+  final Broadcast broadcast;
 
   Anime({
     required this.mal_id,
@@ -50,6 +51,7 @@ class Anime {
     required this.studios,
     required this.genres,
     required this.aired,
+    required this.broadcast,
   });
 
   factory Anime.fromJson(Map<String, dynamic> json) => _$AnimeFromJson(json);
@@ -108,8 +110,8 @@ class Webp {
 
 @JsonSerializable()
 class Genre {
-  final int mal_id;
-  final String name;
+  final int? mal_id;
+  final String? name;
 
   Genre({
     required this.mal_id,
@@ -183,10 +185,10 @@ class Studios {
 
 @JsonSerializable()
 class Aired {
-  final String from;
+  final String? from;
   final String? to;
   final Prop prop;
-  final String string;
+  final String? string;
 
   Aired({
     required this.from,
@@ -203,7 +205,7 @@ class Aired {
 @JsonSerializable()
 class Prop {
   final From from;
-  final To? to;
+  final To to;
 
   Prop({
     required this.from,
@@ -217,9 +219,9 @@ class Prop {
 
 @JsonSerializable()
 class From {
-  final int day;
-  final int month;
-  final int year;
+  final int? day;
+  final int? month;
+  final int? year;
 
   From({required this.day, required this.month, required this.year});
 
@@ -239,4 +241,24 @@ class To {
   factory To.fromJson(Map<String, dynamic> json) => _$ToFromJson(json);
 
   Map<String, dynamic> toJson() => _$ToToJson(this);
+}
+
+@JsonSerializable()
+class Broadcast {
+  final String? day;
+  final String? time;
+  final String? timezone;
+  final String? string;
+
+  Broadcast({
+    required this.day,
+    required this.time,
+    required this.timezone,
+    required this.string,
+  });
+
+  factory Broadcast.fromJson(Map<String, dynamic> json) =>
+      _$BroadcastFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BroadcastToJson(this);
 }

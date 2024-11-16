@@ -1,3 +1,4 @@
+import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/pages/home_fragment.dart';
 import 'package:aniki/pages/schedule_fragment.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     final currentIndex = ref.watch(currentIndexProvider);
     final pageController = ref.watch(pageControllerProvider);
 
@@ -26,6 +27,14 @@ class HomePage extends ConsumerWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedLabelStyle: TextStyle(
+          fontSize: size.height * h3,
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontSize: size.height * p1,
+        ),
         currentIndex: currentIndex,
         onTap: (index) {
           pageController.jumpToPage(index);
@@ -33,12 +42,12 @@ class HomePage extends ConsumerWidget {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_rounded),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
+            icon: Icon(Icons.date_range_rounded),
+            label: "Schedule",
           ),
         ],
       ),

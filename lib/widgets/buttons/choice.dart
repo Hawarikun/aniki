@@ -74,7 +74,7 @@ class MultiChoice extends ConsumerWidget {
           ),
           showCheckmark: false,
           selectedColor: Theme.of(context).colorScheme.primary,
-          label: Text(items[index].name),
+          label: Text(items[index].name!),
           selected: isSelected,
           onSelected: (value) {
             final selectedList = List<int>.from(selectedItems);
@@ -84,7 +84,7 @@ class MultiChoice extends ConsumerWidget {
               selectedList.remove(items[index].mal_id);
             } else {
               // If the genre is not selected, add it to the list
-              selectedList.add(items[index].mal_id);
+              selectedList.add(items[index].mal_id!);
             }
 
             // Update the provider state with the new selected list of genre IDs

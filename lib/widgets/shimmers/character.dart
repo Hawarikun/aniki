@@ -47,7 +47,7 @@ class ListCharacterSIndex extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Characters & VA",
+                "Cast",
                 style: TextStyle(
                   fontSize: size.height * h1,
                   fontWeight: FontWeight.bold,

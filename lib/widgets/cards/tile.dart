@@ -30,7 +30,7 @@ class AnimeIndexTileCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ImageContent(
-                  imageUrl: anime.images.webp!.large_image_url!,
+                  imageUrl: anime.images.webp!.large_image_url ?? "",
                   ratingScore: anime.score,
                 ),
                 Gap(size.width * 0.025),
@@ -51,7 +51,7 @@ class AnimeIndexTileCard extends StatelessWidget {
                       ),
                       // Gap(size.height * 0.01),
                       Text(
-                        "${anime.year.toString()} | ${anime.season} | ${anime.type} ",
+                        "${anime.year == null ? "Unknown" : anime.year.toString()} | ${anime.season ?? "Unknown"} | ${anime.type} ",
                         maxLines: 2,
                         style: TextStyle(
                           fontSize: size.height * p1,
