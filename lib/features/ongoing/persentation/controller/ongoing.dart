@@ -39,13 +39,9 @@ class OngoingParams extends Equatable {
 }
 
 final ongoingControllerProv = AutoDisposeStateNotifierProviderFamily<
-    OngoingController, AsyncValue<List<Anime>>, OngoingParams>((
-  ref,
-  params,
-) {
-  final repository = ref.read(ongoingRepoProv);
-  return OngoingController(
-    repository,
-    params,
-  );
-});
+    OngoingController, AsyncValue<List<Anime>>, OngoingParams>(
+  (ref, params) {
+    final repository = ref.read(ongoingRepoProv);
+    return OngoingController(repository, params);
+  },
+);

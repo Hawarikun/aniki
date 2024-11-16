@@ -68,7 +68,7 @@ class CharactersInfo extends ConsumerWidget {
                               children: [
                                 Gap(size.width * 0.025),
                                 CharacterImages(
-                                  imageUrl: char.character.images.jpg.imageUrl,
+                                  imageUrl: char.character.images.jpg.image_url,
                                   name: char.character.name,
                                 ),
                               ],
@@ -87,14 +87,14 @@ class CharactersInfo extends ConsumerWidget {
                           data.length > 10 ? 10 : data.length,
                           (index) {
                             final char = data[index];
-                            if (char.voiceActors.isNotEmpty) {
-                              final va = char.voiceActors.first;
+                            if (char.voice_actors.isNotEmpty) {
+                              final va = char.voice_actors.first;
 
                               return Row(
                                 children: [
                                   Gap(size.width * 0.025),
                                   CharacterImages(
-                                    imageUrl: va.person.images.jpg.imageUrl,
+                                    imageUrl: va.person.images.jpg.image_url,
                                     name: va.person.name,
                                   ),
                                 ],

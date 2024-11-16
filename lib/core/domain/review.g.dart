@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../review.dart';
+part of 'review.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
 Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
-      malId: (json['malId'] as num?)?.toInt(),
+      mal_id: (json['mal_id'] as num?)?.toInt(),
       url: json['url'] as String?,
       type: json['type'] as String?,
       reactions: json['reactions'] == null
@@ -18,16 +18,16 @@ Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       review: json['review'] as String?,
       score: (json['score'] as num?)?.toInt(),
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      isSpoiler: json['isSpoiler'] as bool?,
-      isPreliminary: json['isPreliminary'] as bool?,
-      episodesWatched: json['episodesWatched'],
+      is_spoiler: json['is_spoiler'] as bool?,
+      is_preliminary: json['is_preliminary'] as bool?,
+      episodes_watched: json['episodes_watched'],
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
-      'malId': instance.malId,
+      'mal_id': instance.mal_id,
       'url': instance.url,
       'type': instance.type,
       'reactions': instance.reactions?.toJson(),
@@ -35,31 +35,31 @@ Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'review': instance.review,
       'score': instance.score,
       'tags': instance.tags,
-      'isSpoiler': instance.isSpoiler,
-      'isPreliminary': instance.isPreliminary,
-      'episodesWatched': instance.episodesWatched,
+      'is_spoiler': instance.is_spoiler,
+      'is_preliminary': instance.is_preliminary,
+      'episodes_watched': instance.episodes_watched,
       'user': instance.user?.toJson(),
     };
 
 Reactions _$ReactionsFromJson(Map<String, dynamic> json) => Reactions(
       overall: (json['overall'] as num?)?.toInt(),
       nice: (json['nice'] as num?)?.toInt(),
-      loveIt: (json['loveIt'] as num?)?.toInt(),
+      love_it: (json['love_it'] as num?)?.toInt(),
       funny: (json['funny'] as num?)?.toInt(),
       confusing: (json['confusing'] as num?)?.toInt(),
       informative: (json['informative'] as num?)?.toInt(),
-      wellWritten: (json['wellWritten'] as num?)?.toInt(),
+      well_written: (json['well_written'] as num?)?.toInt(),
       creative: (json['creative'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$ReactionsToJson(Reactions instance) => <String, dynamic>{
       'overall': instance.overall,
       'nice': instance.nice,
-      'loveIt': instance.loveIt,
+      'love_it': instance.love_it,
       'funny': instance.funny,
       'confusing': instance.confusing,
       'informative': instance.informative,
-      'wellWritten': instance.wellWritten,
+      'well_written': instance.well_written,
       'creative': instance.creative,
     };
 
@@ -78,9 +78,9 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
     };
 
 Image _$ImageFromJson(Map<String, dynamic> json) => Image(
-      imageUrl: json['imageUrl'] as String?,
+      image_url: json['image_url'] as String?,
     );
 
 Map<String, dynamic> _$ImageToJson(Image instance) => <String, dynamic>{
-      'imageUrl': instance.imageUrl,
+      'image_url': instance.image_url,
     };

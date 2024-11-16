@@ -1,19 +1,21 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:json_annotation/json_annotation.dart';
 
-part 'annatation/cast.g.dart';
+part 'cast.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class AnimeCast {
   Character character;
   String role;
   int favorites;
-  List<VoiceActor> voiceActors;
+  List<VoiceActor> voice_actors;
 
   AnimeCast({
     required this.character,
     required this.role,
     required this.favorites,
-    required this.voiceActors,
+    required this.voice_actors,
   });
 
   factory AnimeCast.fromJson(Map<String, dynamic> json) => _$AnimeCastFromJson(json);
@@ -23,13 +25,13 @@ class AnimeCast {
 
 @JsonSerializable()
 class Character {
-  int malId;
+  int mal_id;
   String url;
   CharacterImages images;
   String name;
 
   Character({
-    required this.malId,
+    required this.mal_id,
     required this.url,
     required this.images,
     required this.name,
@@ -57,10 +59,10 @@ class CharacterImages {
 
 @JsonSerializable()
 class Jpg {
-  String imageUrl;
+  String? image_url;
 
   Jpg({
-    required this.imageUrl,
+    required this.image_url,
   });
 
   factory Jpg.fromJson(Map<String, dynamic> json) => _$JpgFromJson(json);
@@ -70,11 +72,11 @@ class Jpg {
 
 @JsonSerializable()
 class Webp {
-  String imageUrl;
-  String smallImageUrl;
+  String? image_url;
+  String? smallImageUrl;
 
   Webp({
-    required this.imageUrl,
+    required this.image_url,
     required this.smallImageUrl,
   });
 
@@ -100,13 +102,13 @@ class VoiceActor {
 
 @JsonSerializable()
 class Person {
-  int malId;
+  int mal_id;
   String url;
   PersonImages images;
   String name;
 
   Person({
-    required this.malId,
+    required this.mal_id,
     required this.url,
     required this.images,
     required this.name,

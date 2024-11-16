@@ -39,14 +39,14 @@ class DetailPage extends ConsumerWidget {
         data: (data) {
           final genres = data.genres.map((genres) => genres.name).join('  •  ');
           final studios =
-              data.studios.map((studios) => studios.name).join(', ');
+              data.studios!.map((studios) => studios.name).join(', ');
 
           // Inisialisasi controller hanya jika youtubeId tidak null dan belum diinisialisasi
-          if (data.trailer!.youtubeId != null) {
+          if (data.trailer.youtube_id != null) {
             Future(() {
               ref.read(youtubeControllerProvider.notifier).state =
                   YoutubePlayerController(
-                initialVideoId: data.trailer!.youtubeId!,
+                initialVideoId: data.trailer.youtube_id!,
                 flags: const YoutubePlayerFlags(
                   autoPlay: false,
                   mute: false,
@@ -68,7 +68,7 @@ class DetailPage extends ConsumerWidget {
             ),
             builder: (contex, player) => CustomDetailSliverAppBar(
               size: size.height * 0.5,
-              url: data.images,
+              url: data.images.webp!.large_image_url!,
               body: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -178,7 +178,7 @@ class DetailPage extends ConsumerWidget {
 
                           /// Trailer
                           Visibility(
-                            visible: data.trailer!.youtubeId != null,
+                            visible: data.trailer.youtube_id != null,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -202,7 +202,7 @@ class DetailPage extends ConsumerWidget {
                             studio: studios,
                             season:
                                 "${data.season != null ? data.season!.capitalize() : "N/A"} ${data.year ?? "N/A"}",
-                            aired: data.aried ?? "N/A",
+                            aired: data.aired.string,
                             episodes:
                                 "${data.episodes ?? "N/A"}, ${data.duration ?? "N/A"}",
                             status: data.status,

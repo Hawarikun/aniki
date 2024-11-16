@@ -32,13 +32,13 @@ class CustomSliverAppBar extends ConsumerWidget {
                 body: InkWell(
                   onTap: () {
                     AppRoutes.goRouter
-                        .pushNamed(AppRoutes.detail, extra: data.id.toString());
+                        .pushNamed(AppRoutes.detail, extra: data.mal_id.toString());
                   },
                   child: Stack(
                     children: [
                       FlexibleSpaceBar(
                         background: CachedNetworkImage(
-                          imageUrl: data.images,
+                          imageUrl: data.images.webp!.large_image_url!,
                           fit: BoxFit.cover,
                           errorWidget: (ctx, error, _) =>
                               const Center(child: Icon(Icons.error)),

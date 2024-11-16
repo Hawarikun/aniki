@@ -66,7 +66,7 @@ class MultiChoice extends ConsumerWidget {
     return Wrap(
       spacing: size.width * 0.02,
       children: List<Widget>.generate(items.length, (index) {
-        final isSelected = selectedItems.contains(items[index].malId);
+        final isSelected = selectedItems.contains(items[index].mal_id);
 
         return ChoiceChip(
           labelStyle: TextStyle(
@@ -81,10 +81,10 @@ class MultiChoice extends ConsumerWidget {
 
             if (isSelected) {
               // If the genre is already selected, remove it from the list
-              selectedList.remove(items[index].malId);
+              selectedList.remove(items[index].mal_id);
             } else {
               // If the genre is not selected, add it to the list
-              selectedList.add(items[index].malId);
+              selectedList.add(items[index].mal_id);
             }
 
             // Update the provider state with the new selected list of genre IDs

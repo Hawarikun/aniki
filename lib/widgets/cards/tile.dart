@@ -20,7 +20,7 @@ class AnimeIndexTileCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         AppRoutes.goRouter
-            .pushNamed(AppRoutes.detail, extra: anime.id.toString());
+            .pushNamed(AppRoutes.detail, extra: anime.mal_id.toString());
       },
       child: Column(
         children: [
@@ -29,7 +29,10 @@ class AnimeIndexTileCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ImageContent(imageUrl: anime.images, ratingScore: anime.score),
+                ImageContent(
+                  imageUrl: anime.images.webp!.large_image_url!,
+                  ratingScore: anime.score,
+                ),
                 Gap(size.width * 0.025),
                 Expanded(
                   child: Column(

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../cast.dart';
+part of 'cast.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -10,7 +10,7 @@ AnimeCast _$AnimeCastFromJson(Map<String, dynamic> json) => AnimeCast(
       character: Character.fromJson(json['character'] as Map<String, dynamic>),
       role: json['role'] as String,
       favorites: (json['favorites'] as num).toInt(),
-      voiceActors: (json['voiceActors'] as List<dynamic>)
+      voice_actors: (json['voice_actors'] as List<dynamic>)
           .map((e) => VoiceActor.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -19,18 +19,18 @@ Map<String, dynamic> _$AnimeCastToJson(AnimeCast instance) => <String, dynamic>{
       'character': instance.character.toJson(),
       'role': instance.role,
       'favorites': instance.favorites,
-      'voiceActors': instance.voiceActors.map((e) => e.toJson()).toList(),
+      'voice_actors': instance.voice_actors.map((e) => e.toJson()).toList(),
     };
 
 Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
-      malId: (json['malId'] as num).toInt(),
+      mal_id: (json['mal_id'] as num).toInt(),
       url: json['url'] as String,
       images: CharacterImages.fromJson(json['images'] as Map<String, dynamic>),
       name: json['name'] as String,
     );
 
 Map<String, dynamic> _$CharacterToJson(Character instance) => <String, dynamic>{
-      'malId': instance.malId,
+      'mal_id': instance.mal_id,
       'url': instance.url,
       'images': instance.images,
       'name': instance.name,
@@ -49,20 +49,20 @@ Map<String, dynamic> _$CharacterImagesToJson(CharacterImages instance) =>
     };
 
 Jpg _$JpgFromJson(Map<String, dynamic> json) => Jpg(
-      imageUrl: json['imageUrl'] as String,
+      image_url: json['image_url'] as String?,
     );
 
 Map<String, dynamic> _$JpgToJson(Jpg instance) => <String, dynamic>{
-      'imageUrl': instance.imageUrl,
+      'image_url': instance.image_url,
     };
 
 Webp _$WebpFromJson(Map<String, dynamic> json) => Webp(
-      imageUrl: json['imageUrl'] as String,
-      smallImageUrl: json['smallImageUrl'] as String,
+      image_url: json['image_url'] as String?,
+      smallImageUrl: json['smallImageUrl'] as String?,
     );
 
 Map<String, dynamic> _$WebpToJson(Webp instance) => <String, dynamic>{
-      'imageUrl': instance.imageUrl,
+      'image_url': instance.image_url,
       'smallImageUrl': instance.smallImageUrl,
     };
 
@@ -78,14 +78,14 @@ Map<String, dynamic> _$VoiceActorToJson(VoiceActor instance) =>
     };
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
-      malId: (json['malId'] as num).toInt(),
+      mal_id: (json['mal_id'] as num).toInt(),
       url: json['url'] as String,
       images: PersonImages.fromJson(json['images'] as Map<String, dynamic>),
       name: json['name'] as String,
     );
 
 Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
-      'malId': instance.malId,
+      'mal_id': instance.mal_id,
       'url': instance.url,
       'images': instance.images,
       'name': instance.name,

@@ -1,14 +1,16 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:json_annotation/json_annotation.dart';
 
-part 'annatation/news.g.dart';
+part 'news.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class News {
-  int? malId;
+  int? mal_id;
   String? url;
   String? title;
   DateTime? date;
-  String? authorUsername;
+  String? author_username;
   String? authorUrl;
   String? forumUrl;
   Images images;
@@ -16,11 +18,11 @@ class News {
   String? excerpt;
 
   News({
-    this.malId,
+    this.mal_id,
     this.url,
     this.title,
     this.date,
-    this.authorUsername,
+    this.author_username,
     this.authorUrl,
     this.forumUrl,
     required this.images,
@@ -48,10 +50,10 @@ class Images {
 
 @JsonSerializable()
 class Jpg {
-  String? imageUrl;
+  String? image_url;
 
   Jpg({
-    this.imageUrl,
+    this.image_url,
   });
 
   factory Jpg.fromJson(Map<String, dynamic> json) => _$JpgFromJson(json);

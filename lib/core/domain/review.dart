@@ -1,10 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:json_annotation/json_annotation.dart';
 
-part 'annatation/review.g.dart';
+part 'review.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Review {
-  int? malId;
+  int? mal_id;
   String? url;
   String? type;
   Reactions? reactions;
@@ -12,13 +14,13 @@ class Review {
   String? review;
   int? score;
   List<String>? tags;
-  bool? isSpoiler;
-  bool? isPreliminary;
-  dynamic episodesWatched;
+  bool? is_spoiler;
+  bool? is_preliminary;
+  dynamic episodes_watched;
   User? user;
 
   Review({
-    this.malId,
+    this.mal_id,
     this.url,
     this.type,
     this.reactions,
@@ -26,9 +28,9 @@ class Review {
     this.review,
     this.score,
     this.tags,
-    this.isSpoiler,
-    this.isPreliminary,
-    this.episodesWatched,
+    this.is_spoiler,
+    this.is_preliminary,
+    this.episodes_watched,
     this.user,
   });
 
@@ -42,21 +44,21 @@ class Review {
 class Reactions {
   int? overall;
   int? nice;
-  int? loveIt;
+  int? love_it;
   int? funny;
   int? confusing;
   int? informative;
-  int? wellWritten;
+  int? well_written;
   int? creative;
 
   Reactions({
     this.overall,
     this.nice,
-    this.loveIt,
+    this.love_it,
     this.funny,
     this.confusing,
     this.informative,
-    this.wellWritten,
+    this.well_written,
     this.creative,
   });
 
@@ -84,10 +86,10 @@ class User {
 
 @JsonSerializable()
 class Image {
-  String? imageUrl;
+  String? image_url;
 
   Image({
-    this.imageUrl,
+    this.image_url,
   });
 
   factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);

@@ -49,7 +49,7 @@ class AnimeNews extends ConsumerWidget {
                 data.length > 3 ? 3 : data.length,
                 (index) {
                   final news = data[index];
-                  final imageUrl = news.images!.jpg!.imageUrl;
+                  final imageUrl = news.images.jpg!.image_url;
 
                   return NewsCard(
                     imageUrl: imageUrl ?? "",

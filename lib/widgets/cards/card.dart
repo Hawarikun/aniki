@@ -42,7 +42,7 @@ class AnimeIndexCard extends StatelessWidget {
         InkWell(
           onTap: () {
             AppRoutes.goRouter
-                .pushNamed(AppRoutes.detail, extra: anime.id.toString());
+                .pushNamed(AppRoutes.detail, extra: anime.mal_id.toString());
           },
           child: SizedBox(
             width: size.width * 0.275,
@@ -50,12 +50,12 @@ class AnimeIndexCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ImageContent(
-                  imageUrl: anime.images,
-                  ratingScore: anime.score,
+                  imageUrl: anime.images.webp!.large_image_url!,
+                  ratingScore: anime.score ?? 0,
                 ),
                 Gap(size.height * 0.005),
                 Text(
-                  anime.title,
+                  anime.title ,
                   style: TextStyle(
                     fontSize: size.height * p1,
                     overflow: TextOverflow.ellipsis,
