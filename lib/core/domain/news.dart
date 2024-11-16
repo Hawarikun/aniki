@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'annatation/news.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class News {
   int? malId;
   String? url;
@@ -6,7 +11,7 @@ class News {
   String? authorUsername;
   String? authorUrl;
   String? forumUrl;
-  Images? images;
+  Images images;
   int? comments;
   String? excerpt;
 
@@ -18,27 +23,17 @@ class News {
     this.authorUsername,
     this.authorUrl,
     this.forumUrl,
-    this.images,
+    required this.images,
     this.comments,
     this.excerpt,
   });
 
-  factory News.fromJson(Map<String, dynamic> json) {
-    return News(
-      malId: json['mal_id'],
-      url: json['url'],
-      title: json['title'],
-      date: DateTime.parse(json['date']),
-      authorUsername: json['author_username'],
-      authorUrl: json['author_url'],
-      forumUrl: json['forum_url'],
-      images: json['images'] != null ? Images.fromJson(json['images']) : null,
-      comments: json['comments'],
-      excerpt: json['excerpt'],
-    );
-  }
+  factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NewsToJson(this);
 }
 
+@JsonSerializable()
 class Images {
   Jpg? jpg;
 
@@ -46,13 +41,12 @@ class Images {
     this.jpg,
   });
 
-  factory Images.fromJson(Map<String, dynamic> json) {
-    return Images(
-      jpg: json['jpg'] != null ? Jpg.fromJson(json['jpg']) : null,
-    );
-  }
+  factory Images.fromJson(Map<String, dynamic> json) => _$ImagesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ImagesToJson(this);
 }
 
+@JsonSerializable()
 class Jpg {
   String? imageUrl;
 
@@ -60,9 +54,7 @@ class Jpg {
     this.imageUrl,
   });
 
-  factory Jpg.fromJson(Map<String, dynamic> json) {
-    return Jpg(
-      imageUrl: json['image_url'],
-    );
-  }
+  factory Jpg.fromJson(Map<String, dynamic> json) => _$JpgFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JpgToJson(this);
 }

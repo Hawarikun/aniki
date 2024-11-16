@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'annatation/anime.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Anime {
   int id;
   String url;
@@ -44,41 +49,12 @@ class Anime {
     required this.genres,
     this.aried
   });
-  factory Anime.fromJson(Map<String, dynamic> map) => Anime(
-        id: map["mal_id"],
-        url: map["url"],
-        images: map["images"]["jpg"]["large_image_url"],
-        trailer: Trailer.fromJson(map["trailer"]),
-        title: map["title"],
-        // titleEnglish: map["title_english"] ?? "N/A",
-        // titleJapanese: map["title_japanese"] ?? "N/A",
-        type: map["type"],
-        source: map["source"],
-        episodes: map["episodes"] ?? 0,
-        status: map["status"],
-        duration: map["duration"] ?? "N/A",
-        rating: map["rating"] ?? "N/A",
-        score: map['score'] is int
-            ? (map['score'] as int).toDouble()
-            : map['score'] as double?,
-        synopsis: map["synopsis"] ?? "N/A",
-        background: map["background"],
-        season: map["season"] ?? "N/A",
-        year: map["year"] ?? 0,
-        studios: List<Studios>.from(
-          map["studios"].map(
-            (x) => Studios.fromJson(x),
-          ),
-        ),
-        genres: List<Genre>.from(
-          map["genres"].map(
-            (x) => Genre.fromJson(x),
-          ),
-        ),
-        aried: map["aired"]["string"],
-      );
+  factory Anime.fromJson(Map<String, dynamic> map) => _$AnimeFromJson(map);
+
+  Map<String, dynamic> toJson() => _$AnimeToJson(this);
 }
 
+@JsonSerializable()
 class Genre {
   int malId;
   String name;
@@ -88,12 +64,12 @@ class Genre {
     required this.name,
   });
 
-  factory Genre.fromJson(Map<String, dynamic> map) => Genre(
-        malId: map["mal_id"],
-        name: map["name"],
-      );
+  factory Genre.fromJson(Map<String, dynamic> map) => _$GenreFromJson(map);
+
+  Map<String, dynamic> toJson() => _$GenreToJson(this);
 }
 
+@JsonSerializable()
 class Trailer {
   String? youtubeId;
   String? url;
@@ -107,14 +83,12 @@ class Trailer {
     this.images,
   });
 
-  factory Trailer.fromJson(Map<String, dynamic> map) => Trailer(
-        youtubeId: map["youtube_id"] ?? "N/A",
-        url: map["url"] ?? "N/A",
-        embedUrl: map["embed_url"] ?? "N/A",
-        images: map["images"]["image_url"] ?? "N/A",
-      );
+  factory Trailer.fromJson(Map<String, dynamic> map) => _$TrailerFromJson(map);
+
+  Map<String, dynamic> toJson() => _$TrailerToJson(this);
 }
 
+@JsonSerializable()
 class Studios {
   int malId;
   String type;
@@ -128,10 +102,7 @@ class Studios {
     required this.url,
   });
 
-  factory Studios.fromJson(Map<String, dynamic> map) => Studios(
-        malId: map["mal_id"],
-        type: map["type"],
-        name: map["name"],
-        url: map["url"],
-      );
+  factory Studios.fromJson(Map<String, dynamic> map) => _$StudiosFromJson(map);
+
+  Map<String, dynamic> toJson() => _$StudiosToJson(this);
 }

@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'annatation/review.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Review {
   int? malId;
   String? url;
@@ -27,24 +32,13 @@ class Review {
     this.user,
   });
 
-  factory Review.fromJson(Map<String, dynamic> json) => Review(
-        malId: json["mal_id"],
-        url: json["url"],
-        type: json["type"],
-        reactions: json["reactions"] == null
-            ? null
-            : Reactions.fromJson(json["reactions"]),
-        date: json["date"] == null ? null : DateTime.parse(json["date"]),
-        review: json["review"],
-        score: json["score"],
-        tags: json["tags"] == null ? null : List<String>.from(json["tags"]),
-        isSpoiler: json["is_spoiler"],
-        isPreliminary: json["is_preliminary"],
-        episodesWatched: json["episodes_watched"],
-        user: json["user"] == null ? null : User.fromJson(json["user"]),
-      );
+  factory Review.fromJson(Map<String, dynamic> json) => _$ReviewFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReviewToJson(this);
 }
 
+
+@JsonSerializable()
 class Reactions {
   int? overall;
   int? nice;
@@ -66,18 +60,12 @@ class Reactions {
     this.creative,
   });
 
-  factory Reactions.fromJson(Map<String, dynamic> json) => Reactions(
-        overall: json["overall"],
-        nice: json["nice"],
-        loveIt: json["love_it"],
-        funny: json["funny"],
-        confusing: json["confusing"],
-        informative: json["informative"],
-        wellWritten: json["well_written"],
-        creative: json["creative"],
-      );
+  factory Reactions.fromJson(Map<String, dynamic> json) => _$ReactionsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ReactionsToJson(this);
 }
 
+@JsonSerializable()
 class User {
   String? url;
   String? username;
@@ -89,16 +77,12 @@ class User {
     this.images,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        url: json["url"],
-        username: json["username"],
-        images: json["images"] == null
-            ? null
-            : Map.from(json["images"])
-                .map((k, v) => MapEntry<String, Image>(k, Image.fromJson(v))),
-      );
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }
 
+@JsonSerializable()
 class Image {
   String? imageUrl;
 
@@ -106,7 +90,7 @@ class Image {
     this.imageUrl,
   });
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
-        imageUrl: json["image_url"],
-      );
+  factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ImageToJson(this);
 }

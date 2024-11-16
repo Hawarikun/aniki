@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'annatation/cast.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class AnimeCast {
   Character character;
   String role;
@@ -11,19 +16,12 @@ class AnimeCast {
     required this.voiceActors,
   });
 
-  factory AnimeCast.fromJson(Map<String, dynamic> json) {
-    return AnimeCast(
-      character: Character.fromJson(json["character"]),
-      role: json["role"],
-      favorites: json["favorites"],
-      voiceActors: List.generate(
-        json["voice_actors"].length,
-        (index) => VoiceActor.fromJson(json["voice_actors"][index]),
-      ),
-    );
-  }
+  factory AnimeCast.fromJson(Map<String, dynamic> json) => _$AnimeCastFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AnimeCastToJson(this);
 }
 
+@JsonSerializable()
 class Character {
   int malId;
   String url;
@@ -37,22 +35,12 @@ class Character {
     required this.name,
   });
 
-  factory Character.fromJson(Map<String, dynamic> json) {
-    return Character(
-      malId: json["mal_id"],
-      url: json["url"],
-      images: CharacterImages(
-        jpg: Jpg(imageUrl: json["images"]["jpg"]["image_url"]),
-        webp: Webp(
-          imageUrl: json["images"]["webp"]["image_url"],
-          smallImageUrl: json["images"]["webp"]["small_image_url"],
-        ),
-      ),
-      name: json["name"],
-    );
-  }
+  factory Character.fromJson(Map<String, dynamic> json) => _$CharacterFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CharacterToJson(this);
 }
 
+@JsonSerializable()
 class CharacterImages {
   Jpg jpg;
   Webp webp;
@@ -62,17 +50,12 @@ class CharacterImages {
     required this.webp,
   });
 
-  factory CharacterImages.fromJson(Map<String, dynamic> json) {
-    return CharacterImages(
-      jpg: Jpg(imageUrl: json["jpg"]["image_url"]),
-      webp: Webp(
-        imageUrl: json["webp"]["image_url"],
-        smallImageUrl: json["webp"]["small_image_url"],
-      ),
-    );
-  }
+  factory CharacterImages.fromJson(Map<String, dynamic> json) => _$CharacterImagesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CharacterImagesToJson(this);
 }
 
+@JsonSerializable()
 class Jpg {
   String imageUrl;
 
@@ -80,11 +63,12 @@ class Jpg {
     required this.imageUrl,
   });
 
-  factory Jpg.fromJson(Map<String, dynamic> json) {
-    return Jpg(imageUrl: json["image_url"]);
-  }
+  factory Jpg.fromJson(Map<String, dynamic> json) => _$JpgFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JpgToJson(this);
 }
 
+@JsonSerializable()
 class Webp {
   String imageUrl;
   String smallImageUrl;
@@ -94,14 +78,12 @@ class Webp {
     required this.smallImageUrl,
   });
 
-  factory Webp.fromJson(Map<String, dynamic> json) {
-    return Webp(
-      imageUrl: json["image_url"],
-      smallImageUrl: json["small_image_url"],
-    );
-  }
+  factory Webp.fromJson(Map<String, dynamic> json) => _$WebpFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WebpToJson(this);
 }
 
+@JsonSerializable()
 class VoiceActor {
   Person person;
   String language;
@@ -111,14 +93,12 @@ class VoiceActor {
     required this.language,
   });
 
-  factory VoiceActor.fromJson(Map<String, dynamic> json) {
-    return VoiceActor(
-      person: Person.fromJson(json["person"]),
-      language: json["language"],
-    );
-  }
+  factory VoiceActor.fromJson(Map<String, dynamic> json) => _$VoiceActorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VoiceActorToJson(this);
 }
 
+@JsonSerializable()
 class Person {
   int malId;
   String url;
@@ -132,18 +112,12 @@ class Person {
     required this.name,
   });
 
-  factory Person.fromJson(Map<String, dynamic> json) {
-    return Person(
-      malId: json["mal_id"],
-      url: json["url"],
-      images: PersonImages(
-        jpg: Jpg(imageUrl: json["images"]["jpg"]["image_url"]),
-      ),
-      name: json["name"],
-    );
-  }
+  factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PersonToJson(this);
 }
 
+@JsonSerializable()
 class PersonImages {
   Jpg jpg;
 
@@ -151,9 +125,7 @@ class PersonImages {
     required this.jpg,
   });
 
-  factory PersonImages.fromJson(Map<String, dynamic> json) {
-    return PersonImages(
-      jpg: Jpg(imageUrl: json["jpg"]["image_url"]),
-    );
-  }
+  factory PersonImages.fromJson(Map<String, dynamic> json) => _$PersonImagesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PersonImagesToJson(this);
 }
