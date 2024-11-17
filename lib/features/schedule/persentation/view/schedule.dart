@@ -40,7 +40,10 @@ class DaySchedule extends ConsumerWidget {
               broadcast.length,
               (index) {
                 return AnimeIndexCard(
-                  anime: broadcast[index],
+                  mal_id: broadcast[index].mal_id.toString(),
+                  title: broadcast[index].title,
+                  score: broadcast[index].score,
+                  image: broadcast[index].images.webp!.large_image_url!,
                 );
               },
             ),

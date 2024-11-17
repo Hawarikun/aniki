@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:aniki/core/config/assets.dart';
 import 'package:aniki/core/config/router.dart';
+import 'package:aniki/core/config/text_size.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:svg_flutter/svg.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -140,6 +142,53 @@ class CustomDetailAppBar extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class CustomPageAppBar extends StatelessWidget {
+  final Widget body;
+  final String title;
+
+  const CustomPageAppBar({super.key, required this.body, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Column(
+        children: [
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                size.width * 0.03,
+                0,
+                size.width * 0.03,
+                0,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(
+                    width: size.width * 0.08,
+                    child: SvgPicture.asset(appLogo),
+                  ),
+                  Gap(size.width * 0.05),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: size.height * h1,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(child: body),
+        ],
+      ),
     );
   }
 }

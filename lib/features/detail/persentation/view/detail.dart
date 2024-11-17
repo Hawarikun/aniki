@@ -1,10 +1,12 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/extensions/string.dart';
+import 'package:aniki/features/bookmark/persentation/controller/check.dart';
 import 'package:aniki/features/detail/persentation/controller/detail.dart';
 import 'package:aniki/features/detail/persentation/view/cast.dart';
 import 'package:aniki/features/detail/persentation/view/news.dart';
 import 'package:aniki/features/detail/persentation/view/review.dart';
 import 'package:aniki/widgets/appbars/sliver.dart';
+import 'package:aniki/widgets/buttons/bookmark.dart';
 import 'package:aniki/widgets/text/border_text.dart';
 import 'package:aniki/widgets/text/info.dart';
 import 'package:aniki/widgets/text/synopsis.dart';
@@ -89,7 +91,7 @@ class DetailPage extends ConsumerWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  data.title ,
+                                  data.title,
                                   maxLines: 1,
                                   style: TextStyle(
                                     fontSize: size.height * h1,
@@ -98,13 +100,67 @@ class DetailPage extends ConsumerWidget {
                                   ),
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.bookmark_border_outlined,
-                                  size: size.height * 0.03,
-                                ),
-                              ),
+
+                              Consumer(
+                                builder: (context, ref, _) {
+                                  final isBookmarked = ref.watch(
+                                    checkBookmarkControllerProvider(
+                                      CheckBookmarkParams(mal_id: data.mal_id),
+                                    ),
+                                  );
+
+                                  return isBookmarked.when(
+                                    data: (isBookmarkedData) {
+                                      return BookmarkIconButton(
+                                        isBookmarked:
+                                            isBookmarkedData.isNotEmpty,
+                                        anime: data,
+                                      );
+                                    },
+                                    loading: () =>
+                                        const CircularProgressIndicator(),
+                                    error: (error, stackTrace) => Text(
+                                      error.toString(),
+                                    ),
+                                  );
+                                },
+                              )
+
+                              /// Bookmark
+                              // bookmarked.when(
+                              //   data: (isBookmarked) {
+                              //     print(isBookmarked);
+                              //     return isBookmarked == null
+                              //         ?
+                              //         : IconButton(
+                              //             onPressed: () {
+                              //               ref.invalidate(
+                              //                 removeBookmarkControllerprov(
+                              //                   RemoveBookmarkParams(
+                              //                     mal_id: data.mal_id,
+                              //                   ),
+                              //                 ),
+                              //               );
+                              //             },
+                              //             icon: Icon(
+                              //               Icons.bookmark_outlined,
+                              //               color: Theme.of(context)
+                              //                   .colorScheme
+                              //                   .primary,
+                              //               size: size.height * 0.03,
+                              //             ),
+                              //           );
+                              //   },
+                              //   error: (error, stackTrace) =>
+                              //       Text(error.toString()),
+                              //   loading: () => IconButton(
+                              //     onPressed: () {},
+                              //     icon: Icon(
+                              //       Icons.bookmark_border_outlined,
+                              //       size: size.height * 0.03,
+                              //     ),
+                              //   ),
+                              // )
                             ],
                           ),
                           // Gap(size.height * 0.015),

@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
@@ -19,8 +21,13 @@ class ListAnimeIndexCard extends StatelessWidget {
         children: List.generate(
           datas.length,
           (index) {
-            final anime = datas[index];
-            return AnimeIndexCard(anime: anime);
+            final data = datas[index];
+            return AnimeIndexCard(
+              mal_id: data.mal_id.toString(),
+              title: data.title,
+              score: data.score,
+              image: data.images.webp!.large_image_url!,
+            );
           },
         ),
       ),
@@ -29,9 +36,18 @@ class ListAnimeIndexCard extends StatelessWidget {
 }
 
 class AnimeIndexCard extends StatelessWidget {
-  const AnimeIndexCard({super.key, required this.anime});
+  const AnimeIndexCard({
+    super.key,
+    required this.mal_id,
+    required this.title,
+    required this.score,
+    required this.image,
+  });
 
-  final Anime anime;
+  final String mal_id;
+  final String title;
+  final double? score;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +57,7 @@ class AnimeIndexCard extends StatelessWidget {
         Gap(size.width * 0.025),
         InkWell(
           onTap: () {
-            AppRoutes.goRouter
-                .pushNamed(AppRoutes.detail, extra: anime.mal_id.toString());
+            AppRoutes.goRouter.pushNamed(AppRoutes.detail, extra: mal_id);
           },
           child: SizedBox(
             width: size.width * 0.275,
@@ -50,12 +65,12 @@ class AnimeIndexCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ImageContent(
-                  imageUrl: anime.images.webp!.large_image_url!,
-                  ratingScore: anime.score ?? 0,
+                  imageUrl: image,
+                  ratingScore: score,
                 ),
                 Gap(size.height * 0.005),
                 Text(
-                  anime.title ,
+                  title,
                   style: TextStyle(
                     fontSize: size.height * p1,
                     overflow: TextOverflow.ellipsis,

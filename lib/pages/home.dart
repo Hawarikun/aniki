@@ -1,4 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/pages/bookmark_fragment.dart';
 import 'package:aniki/pages/home_fragment.dart';
 import 'package:aniki/pages/schedule_fragment.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class HomePage extends ConsumerWidget {
         children: const [
           HomeFragment(),
           ScheduleFragment(),
+          BookmarkFragment(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -48,6 +50,10 @@ class HomePage extends ConsumerWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.date_range_rounded),
             label: "Schedule",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bookmark_border),
+            label: "My List",
           ),
         ],
       ),

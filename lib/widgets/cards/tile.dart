@@ -1,9 +1,11 @@
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
+import 'package:aniki/features/bookmark/persentation/controller/check.dart';
 import 'package:aniki/widgets/buttons/bookmark.dart';
 import 'package:aniki/widgets/images/content.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 class AnimeIndexTileCard extends StatelessWidget {
@@ -64,7 +66,28 @@ class AnimeIndexTileCard extends StatelessWidget {
                           fontSize: size.height * p1,
                         ),
                       ),
-                      const BookmarkButton()
+                      Consumer(
+                        builder: (context, ref, _) {
+                          final isBookmarked = ref.watch(
+                            checkBookmarkControllerProvider(
+                              CheckBookmarkParams(mal_id: anime.mal_id),
+                            ),
+                          );
+
+                          return isBookmarked.when(
+                            data: (isBookmarkedData) {
+                              return BookmarkButton(
+                                isBookmarked: isBookmarkedData.isNotEmpty,
+                                anime: anime,
+                              );
+                            },
+                            loading: () => const CircularProgressIndicator(),
+                            error: (error, stackTrace) => Text(
+                              error.toString(),
+                            ),
+                          );
+                        },
+                      )
                     ],
                   ),
                 )
