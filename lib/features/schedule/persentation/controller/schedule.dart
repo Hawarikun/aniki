@@ -12,24 +12,61 @@ class ScheduleAnimeController extends StateNotifier<AsyncValue<List<Anime>>> {
   final ScheduleAnimeRepository repo;
   final ScheduleParams params;
 
+  bool _isFatching = false;
+  bool _hasMore = true;
+
+  // Future index() async {
+  //   state = const AsyncValue.loading();
+  //   try {
+  //     final response = await repo.index(params.page, params.limit);
+  //     state = AsyncValue.data(response);
+  //   } catch (e, s) {
+  //     state = AsyncValue.error(e, s);
+  //   }
+  // }
+
   Future index() async {
-    state = const AsyncValue.loading();
+    if (_isFatching || !_hasMore) return;
+
+    _isFatching = true;
+
     try {
-      final response = await repo.index(params.day);
-      state = AsyncValue.data(response);
+      final response = await repo.index(params.page, params.limit);
+      final currentData = state.value ?? [];
+      final newData = [...currentData, ...response];
+
+      state = AsyncValue.data(newData);
+
+      _hasMore = response.length == params.limit;
+
+      if (_hasMore) {
+        params.page++;
+      }
     } catch (e, s) {
       state = AsyncValue.error(e, s);
+    } finally {
+      _isFatching = false;
     }
+  }
+
+  Future nextPage() {
+    if (params.page == 2) {
+      Future.delayed(const Duration(seconds: 1), () => index());
+    }
+
+    return index();
   }
 }
 
+// ignore: must_be_immutable
 class ScheduleParams extends Equatable {
-  const ScheduleParams({required this.day});
+  ScheduleParams({required this.page, required this.limit});
 
-  final String day;
+  int page;
+  int limit;
 
   @override
-  List<Object?> get props => [day];
+  List<Object?> get props => [limit, page];
 }
 
 final scheduleControllerProv = AutoDisposeStateNotifierProviderFamily<

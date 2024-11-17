@@ -1,4 +1,4 @@
-import 'package:aniki/core/apis/schedule.dart';
+import 'package:aniki/core/apis/ongoing.dart';
 import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/core/helpers/api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,11 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ScheduleAnimeRepository {
   ScheduleAnimeRepository(this.api);
 
-  final ScheduleApi api;
+  final OngoingApi api;
 
-  Future<List<Anime>> index(String day) async {
+  Future<List<Anime>> index(int page, int limit) async {
     return await ApiHelper().getData(
-      uri: api.index(day),
+      uri: api.index(page: page, limit: limit),
       builder: (data) {
         return List.generate(
           data["data"].length,
@@ -23,7 +23,7 @@ class ScheduleAnimeRepository {
 
 final scheduleAnimeRepoProv = Provider(
   (ref) {
-    final api = ScheduleApi();
+    final api = OngoingApi();
     return ScheduleAnimeRepository(api);
   },
 );
