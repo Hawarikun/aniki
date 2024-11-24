@@ -16,7 +16,15 @@ import 'package:gap/gap.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 final youtubeControllerProvider =
-    StateProvider.autoDispose<YoutubePlayerController?>((ref) => null);
+    StateProvider.autoDispose.family<YoutubePlayerController, String>(
+  (ref, videoUrl) => YoutubePlayerController(
+    initialVideoId: videoUrl,
+    flags: const YoutubePlayerFlags(
+      autoPlay: false,
+      mute: false,
+    ),
+  ),
+);
 
 class DetailPage extends ConsumerWidget {
   const DetailPage({super.key, required this.id});
@@ -34,256 +42,197 @@ class DetailPage extends ConsumerWidget {
       ),
     );
 
-    final youtubeController = ref.watch(youtubeControllerProvider);
-
     return Scaffold(
       body: detailAnime.when(
         data: (data) {
+          final youtubeController = ref.watch(
+            youtubeControllerProvider(data.trailer.youtube_id!),
+          );
           final genres = data.genres.map((genres) => genres.name).join('  •  ');
           final studios =
               data.studios!.map((studios) => studios.name).join(', ');
 
-          // Inisialisasi controller hanya jika youtubeId tidak null dan belum diinisialisasi
-          if (data.trailer.youtube_id != null) {
-            Future(() {
-              ref.read(youtubeControllerProvider.notifier).state =
-                  YoutubePlayerController(
-                initialVideoId: data.trailer.youtube_id!,
-                flags: const YoutubePlayerFlags(
-                  autoPlay: false,
-                  mute: false,
-                ),
-              );
-            });
-          }
-
-          if (youtubeController == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
           return YoutubePlayerBuilder(
-            player: YoutubePlayer(
-              controller: youtubeController,
-              showVideoProgressIndicator: true,
-            ),
-            builder: (contex, player) => CustomDetailSliverAppBar(
-              size: size.height * 0.5,
-              url: data.images.webp!.large_image_url!,
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        size.width * 0.03,
-                        0,
-                        size.width * 0.03,
-                        0,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Gap(size.height * 0.015),
-
-                          /// Title
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  data.title,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    fontSize: size.height * h1,
-                                    fontWeight: FontWeight.bold,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
-
-                              Consumer(
-                                builder: (context, ref, _) {
-                                  final isBookmarked = ref.watch(
-                                    checkBookmarkControllerProvider(
-                                      CheckBookmarkParams(mal_id: data.mal_id),
-                                    ),
-                                  );
-
-                                  return isBookmarked.when(
-                                    data: (isBookmarkedData) {
-                                      return BookmarkIconButton(
-                                        isBookmarked:
-                                            isBookmarkedData.isNotEmpty,
-                                        anime: data,
-                                      );
-                                    },
-                                    loading: () =>
-                                        const CircularProgressIndicator(),
-                                    error: (error, stackTrace) => Text(
-                                      error.toString(),
-                                    ),
-                                  );
-                                },
-                              )
-
-                              /// Bookmark
-                              // bookmarked.when(
-                              //   data: (isBookmarked) {
-                              //     print(isBookmarked);
-                              //     return isBookmarked == null
-                              //         ?
-                              //         : IconButton(
-                              //             onPressed: () {
-                              //               ref.invalidate(
-                              //                 removeBookmarkControllerprov(
-                              //                   RemoveBookmarkParams(
-                              //                     mal_id: data.mal_id,
-                              //                   ),
-                              //                 ),
-                              //               );
-                              //             },
-                              //             icon: Icon(
-                              //               Icons.bookmark_outlined,
-                              //               color: Theme.of(context)
-                              //                   .colorScheme
-                              //                   .primary,
-                              //               size: size.height * 0.03,
-                              //             ),
-                              //           );
-                              //   },
-                              //   error: (error, stackTrace) =>
-                              //       Text(error.toString()),
-                              //   loading: () => IconButton(
-                              //     onPressed: () {},
-                              //     icon: Icon(
-                              //       Icons.bookmark_border_outlined,
-                              //       size: size.height * 0.03,
-                              //     ),
-                              //   ),
-                              // )
-                            ],
+              player: YoutubePlayer(
+                controller: youtubeController,
+                showVideoProgressIndicator: true,
+              ),
+              builder: (context, player) {
+                return CustomDetailSliverAppBar(
+                  size: size.height * 0.5,
+                  url: data.images.webp!.large_image_url!,
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(
+                            size.width * 0.03,
+                            0,
+                            size.width * 0.03,
+                            0,
                           ),
-                          // Gap(size.height * 0.015),
-
-                          Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              /// Score
+                              // Gap(size.height * 0.015),
+
+                              /// Title
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.star_half_rounded,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  Gap(size.width * 0.0175),
-                                  Text(
-                                    (data.score.toString().isEmpty)
-                                        ? "-"
-                                        : data.score.toString(),
-                                    style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontSize: size.height * p1,
-                                      fontWeight: FontWeight.bold,
+                                  Expanded(
+                                    child: Text(
+                                      data.title,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        fontSize: size.height * h1,
+                                        fontWeight: FontWeight.bold,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ),
-                                  Gap(size.width * 0.0175),
-                                  Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    size: size.height * 0.025,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
+                                  Consumer(
+                                    builder: (context, ref, _) {
+                                      final isBookmarked = ref.watch(
+                                        checkBookmarkControllerProvider(
+                                          CheckBookmarkParams(
+                                              mal_id: data.mal_id),
+                                        ),
+                                      );
+
+                                      return isBookmarked.when(
+                                        data: (isBookmarkedData) {
+                                          return BookmarkIconButton(
+                                            isBookmarked:
+                                                isBookmarkedData.isNotEmpty,
+                                            anime: data,
+                                          );
+                                        },
+                                        loading: () =>
+                                            const CircularProgressIndicator(),
+                                        error: (error, stackTrace) => Text(
+                                          error.toString(),
+                                        ),
+                                      );
+                                    },
                                   )
                                 ],
                               ),
-                              Gap(size.width * 0.03),
 
-                              /// Year
+                              Row(
+                                children: [
+                                  /// Score
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star_half_rounded,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                      Gap(size.width * 0.0175),
+                                      Text(
+                                        (data.score.toString().isEmpty)
+                                            ? "-"
+                                            : data.score.toString(),
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          fontSize: size.height * p1,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Gap(size.width * 0.0175),
+                                      Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        size: size.height * 0.025,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      )
+                                    ],
+                                  ),
+                                  Gap(size.width * 0.03),
+
+                                  /// Year
+                                  Text(
+                                    data.year.toString(),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: size.height * p1,
+                                    ),
+                                  ),
+                                  Gap(size.width * 0.03),
+
+                                  /// Rating
+                                  BorderText(content: data.rating ?? "21+"),
+                                  Gap(size.width * 0.03),
+
+                                  /// Type
+                                  BorderText(content: data.type),
+                                ],
+                              ),
+                              Gap(size.height * 0.03),
+
+                              /// Genres
                               Text(
-                                data.year.toString(),
+                                (genres.isNotEmpty) ? "Genres : $genres" : "-",
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
                                   fontSize: size.height * p1,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Gap(size.width * 0.03),
+                              Gap(size.height * 0.03),
 
-                              /// Rating
-                              BorderText(content: data.rating ?? "21+"),
-                              Gap(size.width * 0.03),
+                              /// Synopsis
+                              Synopsis(synopsis: data.synopsis ?? "-"),
+                              Gap(size.height * 0.03),
 
-                              /// Type
-                              BorderText(content: data.type),
+                              /// Trailer
+                              Visibility(
+                                visible: data.trailer.youtube_id != null,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Gap(size.height * 0.01),
+                                    player,
+                                    Gap(size.height * 0.04),
+                                  ],
+                                ),
+                              ),
+
+                              /// More Information
+                              MoreInformation(
+                                source: data.source ?? "N/A",
+                                studio: studios,
+                                season:
+                                    "${data.season != null ? data.season!.capitalize() : "N/A"} ${data.year ?? "N/A"}",
+                                aired: data.aired.string ?? "N/A",
+                                episodes:
+                                    "${data.episodes ?? "N/A"}, ${data.duration ?? "N/A"}",
+                                status: data.status ?? "N/A",
+                              ),
+                              Gap(size.height * 0.05),
                             ],
                           ),
-                          Gap(size.height * 0.03),
+                        ),
 
-                          /// Genres
-                          Text(
-                            (genres.isNotEmpty) ? "Genres : $genres" : "-",
-                            style: TextStyle(
-                              fontSize: size.height * p1,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Gap(size.height * 0.03),
+                        /// Characters
+                        CharactersInfo(id: id),
+                        Gap(size.height * 0.03),
 
-                          /// Synopsis
-                          Synopsis(synopsis: data.synopsis ?? "-"),
-                          Gap(size.height * 0.03),
+                        /// Reviews
+                        AnimeReview(id: id),
+                        Gap(size.height * 0.03),
 
-                          /// Trailer
-                          Visibility(
-                            visible: data.trailer.youtube_id != null,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Text(
-                                //   "Thailer",
-                                //   style: TextStyle(
-                                //     fontSize: size.height * h1,
-                                //     fontWeight: FontWeight.bold,
-                                //   ),
-                                // ),
-                                Gap(size.height * 0.01),
-                                player,
-                                Gap(size.height * 0.04),
-                              ],
-                            ),
-                          ),
-
-                          /// More Information
-                          MoreInformation(
-                            source: data.source ?? "N/A",
-                            studio: studios,
-                            season:
-                                "${data.season != null ? data.season!.capitalize() : "N/A"} ${data.year ?? "N/A"}",
-                            aired: data.aired.string ?? "N/A",
-                            episodes:
-                                "${data.episodes ?? "N/A"}, ${data.duration ?? "N/A"}",
-                            status: data.status ?? "N/A",
-                          ),
-                          Gap(size.height * 0.05),
-                        ],
-                      ),
+                        /// News
+                        AnimeNews(id: id),
+                        Gap(size.height * 0.03),
+                      ],
                     ),
-
-                    /// Characters
-                    CharactersInfo(id: id),
-                    Gap(size.height * 0.03),
-
-                    /// Reviews
-                    AnimeReview(id: id),
-                    Gap(size.height * 0.03),
-
-                    /// News
-                    AnimeNews(id: id),
-                    Gap(size.height * 0.03),
-                  ],
-                ),
-              ),
-            ),
-          );
+                  ),
+                );
+              });
         },
         error: (error, stackTrace) {
           return Center(
