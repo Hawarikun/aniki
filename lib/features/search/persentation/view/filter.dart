@@ -1,5 +1,6 @@
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/dummys/genres.dart';
+import 'package:aniki/features/infinite_scroll/persentation/view/infinite_scroll.dart';
 import 'package:aniki/features/search/persentation/controller/search.dart';
 import 'package:aniki/features/search/persentation/view/search.dart';
 import 'package:aniki/widgets/buttons/choice.dart';

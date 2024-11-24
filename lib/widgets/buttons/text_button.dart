@@ -10,7 +10,7 @@ class CustomTextButton extends StatelessWidget {
       this.textSize});
 
   final String label;
-  final void Function()? onTap;
+  final GestureTapCallback? onTap;
   final Color color;
   final double? textSize;
 

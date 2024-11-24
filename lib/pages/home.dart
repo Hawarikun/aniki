@@ -25,15 +25,27 @@ class HomePage extends ConsumerWidget {
         children: const [
           HomeFragment(),
           ScheduleFragment(),
+          Center(
+            child: Text("Season"),
+          ),
           BookmarkFragment(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        iconSize: size.width * 0.06,
+        showUnselectedLabels: true,
+        useLegacyColorScheme: false,
+        type: BottomNavigationBarType.fixed,
+
+        /// selected color and font style
+        selectedItemColor: Theme.of(context).colorScheme.primary,
         selectedLabelStyle: TextStyle(
           fontSize: size.height * h3,
           fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.primary,
         ),
+
+        /// unselected color and font style
+        unselectedItemColor: Colors.grey,
         unselectedLabelStyle: TextStyle(
           fontSize: size.height * p1,
         ),
@@ -44,15 +56,23 @@ class HomePage extends ConsumerWidget {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.date_range_rounded),
+            icon: Icon(Icons.date_range_outlined),
+            activeIcon: Icon(Icons.date_range_rounded),
             label: "Schedule",
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.cloud_outlined),
+            activeIcon: Icon(Icons.cloud),
+            label: "Season",
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.bookmark_border),
+            activeIcon: Icon(Icons.bookmark),
             label: "My List",
           ),
         ],

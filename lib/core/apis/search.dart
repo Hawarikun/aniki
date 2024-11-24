@@ -8,7 +8,7 @@ class SearchApi {
       String? status,
       String? orderby,
       String? sort,
-      String? page}) {
+      int? page}) {
     return ApiHelper.buildUri(
       endpoint: "anime",
       params: {
@@ -18,7 +18,7 @@ class SearchApi {
         "type": type ?? "",
         "status": status ?? "",
         "order_by": orderby ?? "title",
-        "page": page ?? "1",
+        "page": page.toString().isNotEmpty ? page.toString() : "1",
         "sfw": "false",
       },
     );

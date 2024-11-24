@@ -14,7 +14,7 @@ class SearchAnimeRepository {
     String? genre,
     String? orderby,
     String? status,
-    String? page,
+    int? page,
   }) async {
     return await ApiHelper().getData(
       uri: api.index(

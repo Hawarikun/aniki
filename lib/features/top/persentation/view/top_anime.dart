@@ -14,7 +14,6 @@ class TopAnimeList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-    ref.watch(typeAnimeProvider);
     final animeList = ref.watch(
       topAnimeControllerProv(
         const TopAnimeParams(
@@ -49,6 +48,8 @@ class TopAnimeList extends ConsumerWidget {
                 onTap: () {
                   ref.read(typeAnimeProvider.notifier).state = "top";
                   AppRoutes.goRouter.pushNamed(AppRoutes.more);
+
+                  
                 },
                 label: "See all",
                 color: Theme.of(context).colorScheme.primary,

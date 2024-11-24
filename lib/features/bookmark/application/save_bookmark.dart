@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
 
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/domain/bookmark.dart';

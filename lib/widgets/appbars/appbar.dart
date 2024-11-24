@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:aniki/core/config/assets.dart';
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/pages/more_anime.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:svg_flutter/svg.dart';
 
@@ -59,14 +61,21 @@ class CustomAppBar extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                AppRoutes.goRouter.pushNamed(AppRoutes.search);
+                            Consumer(
+                              builder: (context, ref, _) {
+                                return IconButton(
+                                  onPressed: () {
+                                    ref.read(typeAnimeProvider.notifier).state =
+                                        "search";
+                                    AppRoutes.goRouter
+                                        .pushNamed(AppRoutes.search);
+                                  },
+                                  icon: const Icon(
+                                    Icons.search,
+                                    color: Colors.white,
+                                  ),
+                                );
                               },
-                              icon: const Icon(
-                                Icons.search,
-                                color: Colors.white,
-                              ),
                             ),
                             IconButton(
                               onPressed: () {},
