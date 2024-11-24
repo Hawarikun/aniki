@@ -33,6 +33,18 @@ Anime _$AnimeFromJson(Map<String, dynamic> json) => Anime(
           .toList(),
       aired: Aired.fromJson(json['aired'] as Map<String, dynamic>),
       broadcast: Broadcast.fromJson(json['broadcast'] as Map<String, dynamic>),
+      producers: (json['producers'] as List<dynamic>)
+          .map((e) => Producer.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      licensors: (json['licensors'] as List<dynamic>)
+          .map((e) => Licensor.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      title_synonyms: (json['title_synonyms'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      theme: json['theme'] == null
+          ? null
+          : ThemeSongs.fromJson(json['theme'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AnimeToJson(Anime instance) => <String, dynamic>{
@@ -58,6 +70,10 @@ Map<String, dynamic> _$AnimeToJson(Anime instance) => <String, dynamic>{
       'genres': instance.genres.map((e) => e.toJson()).toList(),
       'aired': instance.aired.toJson(),
       'broadcast': instance.broadcast.toJson(),
+      'producers': instance.producers.map((e) => e.toJson()).toList(),
+      'licensors': instance.licensors.map((e) => e.toJson()).toList(),
+      'title_synonyms': instance.title_synonyms,
+      'theme': instance.theme?.toJson(),
     };
 
 Images _$ImagesFromJson(Map<String, dynamic> json) => Images(
@@ -212,4 +228,46 @@ Map<String, dynamic> _$BroadcastToJson(Broadcast instance) => <String, dynamic>{
       'time': instance.time,
       'timezone': instance.timezone,
       'string': instance.string,
+    };
+
+Producer _$ProducerFromJson(Map<String, dynamic> json) => Producer(
+      malId: (json['malId'] as num?)?.toInt(),
+      type: json['type'] as String?,
+      name: json['name'] as String?,
+      url: json['url'] as String?,
+    );
+
+Map<String, dynamic> _$ProducerToJson(Producer instance) => <String, dynamic>{
+      'malId': instance.malId,
+      'type': instance.type,
+      'name': instance.name,
+      'url': instance.url,
+    };
+
+Licensor _$LicensorFromJson(Map<String, dynamic> json) => Licensor(
+      malId: (json['malId'] as num?)?.toInt(),
+      type: json['type'] as String?,
+      name: json['name'] as String?,
+      url: json['url'] as String?,
+    );
+
+Map<String, dynamic> _$LicensorToJson(Licensor instance) => <String, dynamic>{
+      'malId': instance.malId,
+      'type': instance.type,
+      'name': instance.name,
+      'url': instance.url,
+    };
+
+ThemeSongs _$ThemeSongsFromJson(Map<String, dynamic> json) => ThemeSongs(
+      openings: (json['openings'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      endings:
+          (json['endings'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    );
+
+Map<String, dynamic> _$ThemeSongsToJson(ThemeSongs instance) =>
+    <String, dynamic>{
+      'openings': instance.openings,
+      'endings': instance.endings,
     };

@@ -28,6 +28,10 @@ class Anime {
   final List<Genre> genres;
   final Aired aired;
   final Broadcast broadcast;
+  final List<Producer> producers;
+  final List<Licensor> licensors;
+  final List<String>? title_synonyms;
+  final ThemeSongs? theme;
 
   Anime({
     required this.mal_id,
@@ -52,6 +56,10 @@ class Anime {
     required this.genres,
     required this.aired,
     required this.broadcast,
+    required this.producers,
+    required this.licensors,
+    this.title_synonyms,
+    this.theme,
   });
 
   factory Anime.fromJson(Map<String, dynamic> json) => _$AnimeFromJson(json);
@@ -261,4 +269,59 @@ class Broadcast {
       _$BroadcastFromJson(json);
 
   Map<String, dynamic> toJson() => _$BroadcastToJson(this);
+}
+
+@JsonSerializable()
+class Producer {
+  int? malId;
+  String? type;
+  String? name;
+  String? url;
+
+  Producer({
+    this.malId,
+    this.type,
+    this.name,
+    this.url,
+  });
+
+  factory Producer.fromJson(Map<String, dynamic> json) =>
+      _$ProducerFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProducerToJson(this);
+}
+
+@JsonSerializable()
+class Licensor {
+  int? malId;
+  String? type;
+  String? name;
+  String? url;
+
+  Licensor({
+    this.malId,
+    this.type,
+    this.name,
+    this.url,
+  });
+
+  factory Licensor.fromJson(Map<String, dynamic> json) =>
+      _$LicensorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LicensorToJson(this);
+}
+
+@JsonSerializable()
+class ThemeSongs {
+  List<String>? openings;
+  List<String>? endings;
+
+  ThemeSongs({
+    this.openings,
+    this.endings,
+  });
+
+  factory ThemeSongs.fromJson(Map<String, dynamic> json) => _$ThemeSongsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ThemeSongsToJson(this);
 }

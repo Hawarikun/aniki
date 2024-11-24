@@ -15,8 +15,8 @@ class Synopsis extends StatelessWidget {
       textAlign: TextAlign.justify,
       trimLines: 5,
       // colorClickableText: ColorApp.primary,
-      trimCollapsedText: 'Selengkapnya',
-      trimExpandedText: '\nSembunyikan',
+      trimCollapsedText: 'More',
+      trimExpandedText: '\nHide',
       style: TextStyle(
         fontSize: size.height * p1,
       ),

@@ -23,7 +23,7 @@ class AnimeNews extends ConsumerWidget {
             size.width * 0.03,
             0,
             size.width * 0.03,
-            0,
+            size.height * 0.03,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

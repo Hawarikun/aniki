@@ -1,5 +1,6 @@
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/features/random/controller/random.dart';
 import 'package:aniki/widgets/appbars/appbar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -31,8 +32,8 @@ class CustomSliverAppBar extends ConsumerWidget {
               flexibleSpace: CustomAppBar(
                 body: InkWell(
                   onTap: () {
-                    AppRoutes.goRouter
-                        .pushNamed(AppRoutes.detail, extra: data.mal_id.toString());
+                    AppRoutes.goRouter.pushNamed(AppRoutes.detail,
+                        extra: data.mal_id.toString());
                   },
                   child: Stack(
                     children: [
@@ -75,7 +76,7 @@ class CustomSliverAppBar extends ConsumerWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      data.title ,
+                                      data.title,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: size.height * h1,
@@ -123,9 +124,15 @@ class CustomDetailSliverAppBar extends StatelessWidget {
   final double size;
   final String url;
   final Widget body;
+  final Anime anime;
 
-  const CustomDetailSliverAppBar(
-      {super.key, required this.size, required this.url, required this.body});
+  const CustomDetailSliverAppBar({
+    super.key,
+    required this.size,
+    required this.url,
+    required this.body,
+    required this.anime,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +144,7 @@ class CustomDetailSliverAppBar extends StatelessWidget {
           automaticallyImplyLeading: false,
           expandedHeight: size,
           flexibleSpace: CustomDetailAppBar(
+            anime: anime,
             body: Stack(
               children: [
                 FlexibleSpaceBar(

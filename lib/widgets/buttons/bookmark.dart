@@ -105,7 +105,7 @@ class BookmarkIconButton extends StatelessWidget {
       icon: Icon(
         isBookmarked ? Icons.bookmark : Icons.bookmark_border_outlined,
         color:
-            isBookmarked ? Theme.of(context).colorScheme.primary : Colors.black,
+            isBookmarked ? Theme.of(context).colorScheme.primary : Colors.white,
         size: size.height * 0.03,
       ),
     );

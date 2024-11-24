@@ -3,7 +3,10 @@ import 'dart:ui';
 import 'package:aniki/core/config/assets.dart';
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/core/domain/anime.dart';
+import 'package:aniki/features/bookmark/persentation/controller/check.dart';
 import 'package:aniki/pages/more_anime.dart';
+import 'package:aniki/widgets/buttons/bookmark.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -100,9 +103,14 @@ class CustomAppBar extends StatelessWidget {
 }
 
 class CustomDetailAppBar extends StatelessWidget {
-  const CustomDetailAppBar({super.key, required this.body});
+  const CustomDetailAppBar({
+    super.key,
+    required this.body,
+    required this.anime,
+  });
 
   final Widget body;
+  final Anime anime;
 
   @override
   Widget build(BuildContext context) {
@@ -131,21 +139,40 @@ class CustomDetailAppBar extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.share,
-                    size: size.height * 0.03,
-                    color: Colors.white,
-                  ),
+                Row(
+                  children: [
+                    Consumer(
+                      builder: (context, ref, _) {
+                        final isBookmarked = ref.watch(
+                          checkBookmarkControllerProvider(
+                            CheckBookmarkParams(mal_id: anime.mal_id),
+                          ),
+                        );
+
+                        return isBookmarked.when(
+                          data: (isBookmarkedData) {
+                            return BookmarkIconButton(
+                              isBookmarked: isBookmarkedData.isNotEmpty,
+                              anime: anime,
+                            );
+                          },
+                          loading: () => const CircularProgressIndicator(),
+                          error: (error, stackTrace) => Text(
+                            error.toString(),
+                          ),
+                        );
+                      },
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.share,
+                        size: size.height * 0.03,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                // IconButton(
-                //   onPressed: () {},
-                //   icon: const Icon(
-                //     Icons.cast_rounded,
-                //     color: Colors.white,
-                //   ),
-                // ),
               ],
             ),
           ),

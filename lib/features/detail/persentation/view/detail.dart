@@ -1,12 +1,10 @@
 import 'package:aniki/core/config/text_size.dart';
-import 'package:aniki/core/extensions/string.dart';
-import 'package:aniki/features/bookmark/persentation/controller/check.dart';
 import 'package:aniki/features/detail/persentation/controller/detail.dart';
 import 'package:aniki/features/detail/persentation/view/cast.dart';
 import 'package:aniki/features/detail/persentation/view/news.dart';
 import 'package:aniki/features/detail/persentation/view/review.dart';
+import 'package:aniki/features/detail/persentation/view/theme_songs.dart';
 import 'package:aniki/widgets/appbars/sliver.dart';
-import 'package:aniki/widgets/buttons/bookmark.dart';
 import 'package:aniki/widgets/text/border_text.dart';
 import 'package:aniki/widgets/text/info.dart';
 import 'package:aniki/widgets/text/synopsis.dart';
@@ -49,8 +47,6 @@ class DetailPage extends ConsumerWidget {
             youtubeControllerProvider(data.trailer.youtube_id!),
           );
           final genres = data.genres.map((genres) => genres.name).join('  •  ');
-          final studios =
-              data.studios!.map((studios) => studios.name).join(', ');
 
           return YoutubePlayerBuilder(
               player: YoutubePlayer(
@@ -59,6 +55,7 @@ class DetailPage extends ConsumerWidget {
               ),
               builder: (context, player) {
                 return CustomDetailSliverAppBar(
+                  anime: data,
                   size: size.height * 0.5,
                   url: data.images.webp!.large_image_url!,
                   body: SingleChildScrollView(
@@ -74,49 +71,17 @@ class DetailPage extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Gap(size.height * 0.015),
+                              Gap(size.height * 0.015),
 
                               /// Title
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      data.title,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        fontSize: size.height * h1,
-                                        fontWeight: FontWeight.bold,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                  Consumer(
-                                    builder: (context, ref, _) {
-                                      final isBookmarked = ref.watch(
-                                        checkBookmarkControllerProvider(
-                                          CheckBookmarkParams(
-                                              mal_id: data.mal_id),
-                                        ),
-                                      );
-
-                                      return isBookmarked.when(
-                                        data: (isBookmarkedData) {
-                                          return BookmarkIconButton(
-                                            isBookmarked:
-                                                isBookmarkedData.isNotEmpty,
-                                            anime: data,
-                                          );
-                                        },
-                                        loading: () =>
-                                            const CircularProgressIndicator(),
-                                        error: (error, stackTrace) => Text(
-                                          error.toString(),
-                                        ),
-                                      );
-                                    },
-                                  )
-                                ],
+                              Text(
+                                data.title,
+                                style: TextStyle(
+                                  fontSize: size.height * h1,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                              Gap(size.height * 0.015),
 
                               Row(
                                 children: [
@@ -203,14 +168,7 @@ class DetailPage extends ConsumerWidget {
 
                               /// More Information
                               MoreInformation(
-                                source: data.source ?? "N/A",
-                                studio: studios,
-                                season:
-                                    "${data.season != null ? data.season!.capitalize() : "N/A"} ${data.year ?? "N/A"}",
-                                aired: data.aired.string ?? "N/A",
-                                episodes:
-                                    "${data.episodes ?? "N/A"}, ${data.duration ?? "N/A"}",
-                                status: data.status ?? "N/A",
+                                anime: data,
                               ),
                               Gap(size.height * 0.05),
                             ],
@@ -221,9 +179,18 @@ class DetailPage extends ConsumerWidget {
                         CharactersInfo(id: id),
                         Gap(size.height * 0.03),
 
+                        /// Theme Songs
+                        Visibility(
+                          visible: data.theme != null,
+                          child: Column(
+                            children: [
+                              ThemeSongsFragment(theme: data.theme!),
+                            ],
+                          ),
+                        ),
+
                         /// Reviews
                         AnimeReview(id: id),
-                        Gap(size.height * 0.03),
 
                         /// News
                         AnimeNews(id: id),
