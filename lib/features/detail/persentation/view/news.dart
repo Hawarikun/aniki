@@ -1,4 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/features/detail/application/detail.dart';
 import 'package:aniki/features/detail/persentation/controller/news.dart';
 import 'package:aniki/widgets/buttons/text_button.dart';
 import 'package:aniki/widgets/cards/news.dart';
@@ -39,7 +40,13 @@ class AnimeNews extends ConsumerWidget {
                     ),
                   ),
                   CustomTextButton(
-                    label: "More Reviews",
+                    onTap: () {
+                      DetailAnimeApplication().moreAnimeNews(
+                        context: context,
+                        news: data,
+                      );
+                    },
+                    label: "More News",
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ],

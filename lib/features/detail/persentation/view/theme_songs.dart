@@ -1,6 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
-import 'package:aniki/widgets/buttons/text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -38,9 +37,9 @@ class ThemeSongsFragment extends ConsumerWidget {
           ),
           Gap(size.height * 0.01),
           ...List.generate(
-            theme.openings!.length < 5
+            theme.openings!.length < 3
                 ? theme.openings!.length
-                : moreOpening == true && theme.openings!.length > 5
+                : moreOpening == true && theme.openings!.length > 3
                     ? theme.openings!.length
                     : 3,
             (index) => SongsContainer(
@@ -48,7 +47,7 @@ class ThemeSongsFragment extends ConsumerWidget {
             ),
           ),
           Visibility(
-            visible: theme.openings!.length > 5,
+            visible: theme.openings!.length > 3,
             child: Center(
               child: IconButton(
                 icon: Icon(
@@ -72,9 +71,9 @@ class ThemeSongsFragment extends ConsumerWidget {
           ),
           Gap(size.height * 0.01),
           ...List.generate(
-            theme.endings!.length < 5
+            theme.endings!.length < 3
                 ? theme.endings!.length
-                : moreEnding == true && theme.endings!.length > 5
+                : moreEnding == true && theme.endings!.length > 3
                     ? theme.endings!.length
                     : 3,
             (index) => SongsContainer(
@@ -82,7 +81,7 @@ class ThemeSongsFragment extends ConsumerWidget {
             ),
           ),
           Visibility(
-            visible: theme.endings!.length > 5,
+            visible: theme.endings!.length > 3,
             child: Center(
               child: IconButton(
                 icon: Icon(

@@ -1,4 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/features/detail/application/detail.dart';
 import 'package:aniki/features/detail/persentation/controller/cast.dart';
 import 'package:aniki/widgets/buttons/text_button.dart';
 import 'package:aniki/widgets/images/character.dart';
@@ -46,7 +47,13 @@ class CharactersInfo extends ConsumerWidget {
                       ),
                     ),
                     CustomTextButton(
-                      label: "More cast",
+                      onTap: () {
+                        DetailAnimeApplication().moreAnimeCast(
+                          context: context,
+                          casts: data,
+                        );
+                      },
+                      label: "More Cast",
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ],

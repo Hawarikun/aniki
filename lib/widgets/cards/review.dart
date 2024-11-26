@@ -24,10 +24,15 @@ class ReviewCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
+        Gap(size.height * 0.0125),
         Row(
           children: [
             Icon(
-              Icons.star_border_rounded,
+              score > 8
+                  ? Icons.star_rounded
+                  : score > 3
+                      ? Icons.star_half_rounded
+                      : Icons.star_border_rounded,
               color: Theme.of(context).colorScheme.primary,
               size: size.height * h1,
             ),
@@ -64,7 +69,11 @@ class ReviewCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        Gap(size.height * 0.025),
+        Gap(size.height * 0.0125),
+        Divider(
+          thickness: 1,
+          color: Colors.grey.shade500,
+        )
       ],
     );
   }
