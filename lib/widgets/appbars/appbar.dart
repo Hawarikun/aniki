@@ -10,6 +10,7 @@ import 'package:aniki/widgets/buttons/bookmark.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:svg_flutter/svg.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -164,7 +165,16 @@ class CustomDetailAppBar extends StatelessWidget {
                       },
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (anime.url!.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("link not available"),
+                            ),
+                          );
+                        }
+                        Share.share(anime.url!);
+                      },
                       icon: Icon(
                         Icons.share,
                         size: size.height * 0.03,

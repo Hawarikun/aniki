@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class DetailAnimeApplication {
+  /// brings up a dialog containing further information about the anime.
   moreInformation({
     required BuildContext context,
     required Anime anime,
@@ -100,6 +101,7 @@ class DetailAnimeApplication {
     );
   }
 
+  /// brings up a bottom sheet containing character and voice actor the anime.
   moreAnimeCast(
       {required BuildContext context, required List<AnimeCast> casts}) {
     showModalBottomSheet(
@@ -155,6 +157,7 @@ class DetailAnimeApplication {
     );
   }
 
+  /// brings up a bottom sheet containing reviews about the anime.
   moreAnimeReview(
       {required BuildContext context, required List<Review> reviews}) {
     showModalBottomSheet(
@@ -215,6 +218,7 @@ class DetailAnimeApplication {
     );
   }
 
+  /// brings up a bottom sheet containing news about the anime.
   moreAnimeNews({
     required BuildContext context,
     required List<News> news,
