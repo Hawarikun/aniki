@@ -8,6 +8,7 @@ class SearchForm extends StatelessWidget {
     required this.inputType,
     required this.hintText,
     this.maxLines,
+    this.onEditingComplete,
     // required this.callBack,
     // this.isObsecure,
     // this.iconButton,
@@ -19,6 +20,7 @@ class SearchForm extends StatelessWidget {
   final String hintText;
   final int? maxLines;
   // final String? Function(String?)? callBack;
+  final VoidCallback? onEditingComplete;
   // final Widget? iconButton;
   // final bool? isObsecure;
   // final double? radius;
@@ -63,7 +65,8 @@ class SearchForm extends StatelessWidget {
         //   ),
         // ),
       ),
-      // autofocus: true,
+      onEditingComplete: onEditingComplete,
+      autofocus: true,
       // obscureText: isObsecure ?? false,
       // validator: callBack,
     );

@@ -9,11 +9,13 @@ class OngoingRepository {
 
   final OngoingApi api;
 
-  Future<List<Anime>> index({int? page, int? limit}) async {
+  Future<List<Anime>> index({int? page, int? limit, bool? continuing, String? type,}) async {
     return await ApiHelper().getData(
       uri: api.index(
         page: page,
         limit: limit,
+        continuing: continuing,
+        type: type,
       ),
       header: ApiHelper.header(),
       builder: (data) {

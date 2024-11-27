@@ -1,6 +1,6 @@
 import 'package:aniki/core/config/router.dart';
-import 'package:aniki/core/dummys/genres.dart';
-import 'package:aniki/features/infinite_scroll/persentation/view/infinite_scroll.dart';
+import 'package:aniki/core/dummys/List.dart';
+import 'package:aniki/features/infinite_scroll/persentation/view/infinite_fragment.dart';
 import 'package:aniki/features/search/persentation/controller/search.dart';
 import 'package:aniki/features/search/persentation/view/search.dart';
 import 'package:aniki/widgets/buttons/choice.dart';
@@ -8,12 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-// final genresProvider = StateProvider<String>((ref) => "");
 final typeProvider = StateProvider<String>((ref) => "");
 final orderByProvider = StateProvider<String>((ref) => "");
 final sortProvider = StateProvider<String>((ref) => "");
 final statusProvider = StateProvider<String>((ref) => "");
-final currentIndexProvider = StateProvider<int>((ref) => 0);
 final genresProvider = StateProvider<List<int>>((ref) => []);
 
 class Filter {
@@ -22,12 +20,10 @@ class Filter {
     required WidgetRef ref,
   }) {
     final size = MediaQuery.of(context).size;
-    // final currentIndex = ref.watch(currentIndexProvider);
     final searchController = ref.watch(searchControllerProvider);
     final type = ref.watch(typeProvider);
     final genres = ref.watch(genresProvider);
     final orderBy = ref.watch(orderByProvider);
-    // final sort = ref.watch(sortProvider);
     final status = ref.watch(statusProvider);
 
     showModalBottomSheet<void>(
@@ -52,21 +48,16 @@ class Filter {
               ),
               Gap(size.height * 0.01),
 
-              // TabBar di sini
-              TabBar(
-                // indicator: BoxDecoration(
-                //   color: Colors.grey.shade300,
-                // ),
+              // TabBar Item
+              const TabBar(
                 dividerColor: Colors.transparent,
-                onTap: (value) =>
-                    ref.read(currentIndexProvider.notifier).state = value,
-                tabs: const [
+                tabs: [
                   Tab(text: "General"),
                   Tab(text: "Genres"),
                 ],
               ),
 
-              // TabBarView untuk konten tab
+              // TabBarView content
               const Expanded(
                 child: TabBarView(
                   children: [
@@ -163,11 +154,6 @@ class FilterGeneral extends ConsumerWidget {
     final selectedType = ref.watch(typeProvider);
     final selectedOrder = ref.watch(orderByProvider);
     final sort = ref.watch(sortProvider);
-
-    // print("selected : $selectedStatus");
-    // print("selected : $selectedType");
-    // print("selected : $selectedOrder");
-    // print("selected : $sort");
 
     return Padding(
       padding: EdgeInsets.fromLTRB(
@@ -283,20 +269,6 @@ class FilterGenres extends ConsumerWidget {
         items: genres,
         provider: genresProvider,
       ),
-      // child: Wrap(
-      //   spacing: size.width * 0.025,
-      //   runSpacing: size.width * 0.025,
-      //   children: genres
-      //       .map((genre) => FilterChip(
-      //             label: Text(genre.name),
-      //             selectedColor: Theme.of(context).colorScheme.primary,
-      //             selected: selectedGenres == genre.malId,
-      //             onSelected: (value) {
-      //               ref.read(genreProvider.notifier).state = genre.malId;
-      //             },
-      //       ))
-      //       .toList(),
-      // ),
     );
   }
 }

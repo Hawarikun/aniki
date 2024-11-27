@@ -1,0 +1,1 @@
+enum TypeCard { card, tile }

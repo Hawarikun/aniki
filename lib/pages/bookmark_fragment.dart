@@ -7,6 +7,9 @@ class BookmarkFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomPageAppBar(body: ListBookmark(), title: "My List");
+    return const CustomPageAppBar(
+      body: ListBookmark(),
+      title: "My List",
+    );
   }
 }

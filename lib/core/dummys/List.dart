@@ -31,3 +31,12 @@ List<Genre> genres = [
   Genre(mal_id: 19, name: "Tragedy"),
   Genre(mal_id: 32, name: "Vampire"),
 ];
+
+List<String> types = <String>[
+  "tv",
+  "movie",
+  "ova",
+  "special",
+  "ona",
+  "music",
+];

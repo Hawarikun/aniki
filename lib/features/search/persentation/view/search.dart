@@ -1,5 +1,6 @@
 import 'package:aniki/core/config/router.dart';
-import 'package:aniki/features/infinite_scroll/persentation/view/infinite_scroll.dart';
+import 'package:aniki/core/dummys/enum.dart';
+import 'package:aniki/features/infinite_scroll/persentation/view/infinite_fragment.dart';
 import 'package:aniki/features/search/persentation/view/filter.dart';
 import 'package:aniki/widgets/forms/search.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,8 @@ class SearchPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     final searchController = ref.watch(searchControllerProvider);
-    searchController.addListener(() {
-      ref.read(pagingControllerProvider).refresh();
-    });
+    final pagingController = ref.watch(pagingControllerProvider);
+
 
     return Scaffold(
       body: SafeArea(
@@ -45,6 +45,10 @@ class SearchPage extends ConsumerWidget {
                       hintText: "Search",
                       inputType: TextInputType.text,
                       maxLines: 1,
+                      onEditingComplete: () {
+                        pagingController.refresh();
+                        FocusScope.of(context).unfocus();
+                      },
                     ),
                   ),
                   Gap(size.width * 0.025),
@@ -86,7 +90,7 @@ class SearchPage extends ConsumerWidget {
                     // Gap(size.height * 0.01),
                     const Expanded(
                       child: Visibility(
-                        child: InfiniteScrollFragment(),
+                        child: InfiniteScrollFragment(typeCard: TypeCard.tile,),
                       ),
                     ),
                   ],

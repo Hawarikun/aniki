@@ -4,7 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AnimeNewsController extends StateNotifier<AsyncValue<List<News>>> {
-  AnimeNewsController(this._repo, this.params) : super(const AsyncValue.loading()) {
+  AnimeNewsController(this._repo, this.params)
+      : super(const AsyncValue.loading()) {
     index();
   }
 

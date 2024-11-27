@@ -1,70 +1,51 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
-import 'package:aniki/features/infinite_scroll/persentation/controller/infinite_scroll.dart';
-import 'package:aniki/features/search/persentation/view/filter.dart';
-import 'package:aniki/features/search/persentation/view/search.dart';
-import 'package:aniki/widgets/cards/tile.dart';
-import 'package:aniki/widgets/shimmers/tile.dart';
+import 'package:aniki/features/infinite_scroll/persentation/view/infinite_fragment.dart';
+import 'package:aniki/widgets/cards/card.dart';
+import 'package:aniki/widgets/shimmers/content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:svg_flutter/svg.dart';
 
-final pagingControllerProvider =
-    StateProvider.autoDispose<PagingController<int, Anime>>((ref) {
-  return PagingController(firstPageKey: 1);
-});
-
-class InfiniteScrollFragment extends ConsumerWidget {
-  const InfiniteScrollFragment({
+class GridInfiniteScrollFragment extends ConsumerWidget {
+  const GridInfiniteScrollFragment({
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    final pagingController = ref.watch(pagingControllerProvider);
 
-    final searchController = ref.watch(searchControllerProvider);
-    final genres = ref.watch(genresProvider);
-    final type = ref.watch(typeProvider);
-    final orderBy = ref.watch(orderByProvider);
-    final status = ref.watch(statusProvider);
-    final controller = ref.watch(pagingControllerProvider);
-
-    ref.watch(
-      infiniteSearchControllerProv(
-        InfiniteScrollParams(
-          query: searchController.text,
-          gendre: genres.map((genres) => genres).join(','),
-          orderby: orderBy,
-          status: status,
-          type: type,
-        ),
+    return PagedGridView<int, Anime>(
+      pagingController: pagingController,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisExtent: size.height * 0.3,
       ),
-    );
-
-    return PagedListView<int, Anime>(
-      pagingController: controller,
       builderDelegate: PagedChildBuilderDelegate<Anime>(
         animateTransitions: true,
         // [transitionDuration] has a default value of 250 milliseconds.
         transitionDuration: const Duration(milliseconds: 1000),
         itemBuilder: (context, item, index) {
-          return AnimeIndexTileCard(
-            anime: item,
+          return AnimeIndexCard(
+            mal_id: item.mal_id.toString(),
+            title: item.title,
+            image: item.images.jpg!.large_image_url!,
+            score: item.score,
           );
         },
-        firstPageProgressIndicatorBuilder: (context) =>
-            const ListAnimeIndexSTileCard(),
+        firstPageProgressIndicatorBuilder: (context) => const AnimeIndexSCard(),
         firstPageErrorIndicatorBuilder: (_) => Center(
           child: Text(
-            controller.error.toString(),
+            pagingController.error.toString(),
           ),
         ),
         newPageErrorIndicatorBuilder: (_) => Center(
           child: Text(
-            controller.error.toString(),
+            pagingController.error.toString(),
           ),
         ),
         noItemsFoundIndicatorBuilder: (_) => Center(
