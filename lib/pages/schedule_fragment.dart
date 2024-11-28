@@ -1,4 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/core/dummys/List.dart';
 import 'package:aniki/features/schedule/persentation/view/schedule.dart';
 import 'package:aniki/widgets/appbars/appbar.dart';
 import 'package:flutter/material.dart';
@@ -14,23 +15,13 @@ class ScheduleFragment extends ConsumerWidget {
     final size = MediaQuery.of(context).size;
     final selectedDay = ref.watch(selectedDayProv);
 
-    List<String> days = [
-      "Sundays",
-      "Mondays",
-      "Tuesdays",
-      "Wednesdays",
-      "Thursdays",
-      "Fridays",
-      "Saturdays",
-    ];
-
     return SafeArea(
       child: CustomPageAppBar(
         title: "Ongoing Schedule",
         body: Padding(
           padding: EdgeInsets.fromLTRB(
             0,
-            0,
+            size.height * 0.03,
             size.width * 0.03,
             0,
           ),

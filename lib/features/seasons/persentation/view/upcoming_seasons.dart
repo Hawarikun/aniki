@@ -1,6 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
-import 'package:aniki/features/seasons/persentation/controller/this.dart';
+import 'package:aniki/features/seasons/persentation/controller/upcoming.dart';
 import 'package:aniki/widgets/buttons/dropdown.dart';
 import 'package:aniki/widgets/cards/card.dart';
 import 'package:aniki/widgets/shimmers/content.dart';
@@ -10,27 +10,27 @@ import 'package:gap/gap.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:svg_flutter/svg.dart';
 
-final thisSeasonPagingControllerProv =
+final upcomingPagingControllerProv =
     StateProvider.autoDispose<PagingController<int, Anime>>((ref) {
   return PagingController(firstPageKey: 1);
 });
 
-class ThisSeasonsFragment extends ConsumerStatefulWidget {
-  const ThisSeasonsFragment({super.key});
+class UpcomingSeasonsFragment extends ConsumerStatefulWidget {
+  const UpcomingSeasonsFragment({super.key});
 
   @override
-  ThisSeasonsFragmentState createState() => ThisSeasonsFragmentState();
+  UpcomingSeasonsFragmentState createState() => UpcomingSeasonsFragmentState();
 }
 
-class ThisSeasonsFragmentState
-    extends ConsumerState<ThisSeasonsFragment> {
+class UpcomingSeasonsFragmentState
+    extends ConsumerState<UpcomingSeasonsFragment> {
   @override
   void initState() {
-    final controller = ref.read(thisSeasonPagingControllerProv);
+    final controller = ref.read(upcomingPagingControllerProv);
     controller.addPageRequestListener(
       (pageKey) => ref.read(
-        thisSeasonAnimeConProv(
-          ThisSeasonAnimeParams(pageKey: pageKey),
+        upcomingAnimeConProv(
+          UpcomingAnimeParams(pageKey: pageKey),
         ),
       ),
     );
@@ -40,7 +40,7 @@ class ThisSeasonsFragmentState
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final controller = ref.watch(thisSeasonPagingControllerProv);
+    final controller = ref.watch(upcomingPagingControllerProv);
     // final ddValue = ref.read(ddValueProvider);
 
     return Padding(

@@ -1,6 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
-import 'package:aniki/features/infinite_scroll/persentation/view/infinite_fragment.dart';
+import 'package:aniki/features/infinite_scroll/view/infinite_fragment.dart';
 import 'package:aniki/widgets/cards/tile.dart';
 import 'package:aniki/widgets/shimmers/tile.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:aniki/core/apis/ongoing.dart';
+import 'package:aniki/core/apis/seasons.dart';
 import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/core/helpers/api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,11 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ScheduleAnimeRepository {
   ScheduleAnimeRepository(this.api);
 
-  final OngoingApi api;
+  final SeasonApi api;
 
   Future<List<Anime>> index(int page, int limit) async {
     return await ApiHelper().getData(
-      uri: api.index(page: page, limit: limit),
+      uri: api.ongoing(page: page, limit: limit),
       builder: (data) {
         return List.generate(
           data["data"].length,
@@ -23,7 +23,7 @@ class ScheduleAnimeRepository {
 
 final scheduleAnimeRepoProv = Provider(
   (ref) {
-    final api = OngoingApi();
+    final api = SeasonApi();
     return ScheduleAnimeRepository(api);
   },
 );

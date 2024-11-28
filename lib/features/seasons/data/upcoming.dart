@@ -1,11 +1,10 @@
 import 'package:aniki/core/apis/seasons.dart';
 import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/core/helpers/api.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OngoingRepository {
-  OngoingRepository(this.api);
+class UpcomingRepository {
+  UpcomingRepository(this.api);
 
   final SeasonApi api;
 
@@ -16,25 +15,22 @@ class OngoingRepository {
     String? type,
   }) async {
     return await ApiHelper().getData(
-      uri: api.ongoing(
+      uri: api.upcoming(
         page: page,
         limit: limit,
         continuing: continuing,
         type: type,
       ),
-      header: ApiHelper.header(),
       builder: (data) {
         return List.generate(data["data"].length, (index) {
-          return Anime.fromJson(
-            data['data'][index],
-          );
+          return Anime.fromJson(data['data'][index]);
         });
       },
     );
   }
 }
 
-final ongoingRepoProv = Provider((ref) {
+final upcomingRepoProv = Provider((ref) {
   final api = SeasonApi();
-  return OngoingRepository(api);
+  return UpcomingRepository(api);
 });

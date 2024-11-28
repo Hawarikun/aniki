@@ -1,1 +1,1 @@
-enum TypeCard { card, tile }
+// enum TypeCard { card, tile }

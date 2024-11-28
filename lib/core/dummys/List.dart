@@ -40,3 +40,40 @@ List<String> types = <String>[
   "ona",
   "music",
 ];
+
+List<String> days = [
+  "Sundays",
+  "Mondays",
+  "Tuesdays",
+  "Wednesdays",
+  "Thursdays",
+  "Fridays",
+  "Saturdays",
+];
+
+
+List<String> status = [
+  "all",
+  "airing",
+  "complete",
+  "upcoming",
+];
+
+List<String> type = [
+  "all",
+  "tv",
+  "movie",
+  "ova",
+  "special",
+  "ona",
+  "music",
+];
+
+List<String> order = [
+  "Relevance",
+  "A-Z",
+  "Z-A",
+  "last updated",
+  "last added",
+  "popularity",
+];

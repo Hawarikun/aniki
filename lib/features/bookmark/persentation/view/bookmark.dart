@@ -54,18 +54,20 @@ class ListBookmark extends ConsumerWidget {
           );
         }
 
-        return GridView(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisExtent: size.height * 0.3,
-          ),
-          children: List.generate(
-            data.length,
-            (index) => AnimeIndexCard(
-              mal_id: data[index].mal_id.toString(),
-              title: data[index].title,
-              score: data[index].score,
-              image: data[index].image ?? "",
+        return Expanded(
+          child: GridView(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisExtent: size.height * 0.3,
+            ),
+            children: List.generate(
+              data.length,
+              (index) => AnimeIndexCard(
+                mal_id: data[index].mal_id.toString(),
+                title: data[index].title,
+                score: data[index].score,
+                image: data[index].image ?? "",
+              ),
             ),
           ),
         );

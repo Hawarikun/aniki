@@ -1,6 +1,6 @@
 import 'package:aniki/core/config/router.dart';
 import 'package:aniki/core/dummys/List.dart';
-import 'package:aniki/features/infinite_scroll/persentation/view/infinite_fragment.dart';
+import 'package:aniki/features/infinite_scroll/view/infinite_fragment.dart';
 import 'package:aniki/features/search/persentation/controller/search.dart';
 import 'package:aniki/features/search/persentation/view/search.dart';
 import 'package:aniki/widgets/buttons/choice.dart';
@@ -123,32 +123,6 @@ class FilterGeneral extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
-
-    List<String> status = [
-      "all",
-      "airing",
-      "complete",
-      "upcoming",
-    ];
-
-    List<String> type = [
-      "all",
-      "tv",
-      "movie",
-      "ova",
-      "special",
-      "ona",
-      "music",
-    ];
-
-    List<String> order = [
-      "Relevance",
-      "A-Z",
-      "Z-A",
-      "last updated",
-      "last added",
-      "popularity",
-    ];
 
     final selectedStatus = ref.watch(statusProvider);
     final selectedType = ref.watch(typeProvider);

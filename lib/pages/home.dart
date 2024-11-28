@@ -1,7 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/pages/bookmark_fragment.dart';
 import 'package:aniki/pages/home_fragment.dart';
-import 'package:aniki/pages/more_anime.dart';
 import 'package:aniki/pages/schedule_fragment.dart';
 import 'package:aniki/pages/seasons_fragment.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +52,6 @@ class HomePage extends ConsumerWidget {
         onTap: (index) {
           pageController.jumpToPage(index);
           ref.read(currentIndexProvider.notifier).state = index;
-
-          if (index == 2) {
-            ref.read(typeAnimeProvider.notifier).state = "season";
-          }
         },
         items: const [
           BottomNavigationBarItem(

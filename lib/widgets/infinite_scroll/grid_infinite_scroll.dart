@@ -1,6 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
-import 'package:aniki/features/infinite_scroll/persentation/view/infinite_fragment.dart';
+import 'package:aniki/features/infinite_scroll/view/infinite_fragment.dart';
 import 'package:aniki/widgets/cards/card.dart';
 import 'package:aniki/widgets/shimmers/content.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +36,8 @@ class GridInfiniteScrollFragment extends ConsumerWidget {
             image: item.images.jpg!.large_image_url!,
             score: item.score,
           );
+
+          // return Text(item.title);
         },
         firstPageProgressIndicatorBuilder: (context) => const AnimeIndexSCard(),
         firstPageErrorIndicatorBuilder: (_) => Center(

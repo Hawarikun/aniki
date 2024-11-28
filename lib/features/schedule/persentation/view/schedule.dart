@@ -1,4 +1,4 @@
-import 'package:aniki/core/apis/ongoing.dart';
+import 'package:aniki/core/apis/seasons.dart';
 import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/features/schedule/data/schedule.dart';
 import 'package:aniki/features/schedule/persentation/controller/schedule.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final scheduleProvider =
     StateNotifierProvider<ScheduleAnimeController, AsyncValue<List<Anime>>>(
         (ref) {
-  return ScheduleAnimeController(ScheduleAnimeRepository(OngoingApi()),
+  return ScheduleAnimeController(ScheduleAnimeRepository(SeasonApi()),
       ScheduleParams(page: 1, limit: 10));
 });
 

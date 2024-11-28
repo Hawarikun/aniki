@@ -1,6 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
-import 'package:aniki/core/dummys/enum.dart';
-import 'package:aniki/features/infinite_scroll/persentation/view/infinite_fragment.dart';
+import 'package:aniki/features/infinite_scroll/view/infinite_fragment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,7 +33,7 @@ class MoreAnimePage extends ConsumerWidget {
           size.width * 0.03,
           0,
         ),
-        child: const InfiniteScrollFragment(typeCard: TypeCard.tile,),
+        child: const MoreAnimeFragment(),
       ),
     );
   }

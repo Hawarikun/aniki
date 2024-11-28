@@ -1,5 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/features/seasons/persentation/view/this_seasons.dart';
+import 'package:aniki/features/seasons/persentation/view/upcoming_seasons.dart';
 import 'package:aniki/widgets/appbars/appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class SeasonsFragment extends StatelessWidget {
     return CustomPageAppBar(
       body: Center(
         child: DefaultTabController(
-          length: 4,
+          length: 3,
           child: Column(
             children: [
               TabBar(
@@ -25,9 +26,6 @@ class SeasonsFragment extends StatelessWidget {
                 indicatorSize: TabBarIndicatorSize.tab,
                 tabs: const [
                   Tab(
-                    text: "Last",
-                  ),
-                  Tab(
                     text: "This Seasons",
                   ),
                   Tab(
@@ -38,25 +36,12 @@ class SeasonsFragment extends StatelessWidget {
                   ),
                 ],
               ),
-              Expanded(
+              const Expanded(
                 child: TabBarView(
                   children: [
-                    const Center(
-                      child: Text("This Season"),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        size.width * 0.03,
-                        0,
-                        size.width * 0.03,
-                        0,
-                      ),
-                      child: const ThisSeasonTabContent(),
-                    ),
-                    const Center(
-                      child: Text("Next"),
-                    ),
-                    const Center(
+                    ThisSeasonsFragment(),
+                    UpcomingSeasonsFragment(),
+                    Center(
                       child: Text("Archive"),
                     ),
                   ],

@@ -6,45 +6,45 @@ part 'anime.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Anime {
-  final int mal_id;
-  final String? url;
-  final Images images;
-  final Trailer trailer;
-  final String title;
-  final String? title_english;
-  final String? title_japanese;
-  final String type;
-  final String? source;
-  final int? episodes;
-  final String? status;
-  final String? duration;
-  final String? rating;
-  final double? score;
-  final String? synopsis;
-  final String? background;
-  final String? season;
-  final int? year;
-  final List<Studios>? studios;
-  final List<Genre> genres;
-  final Aired aired;
-  final Broadcast broadcast;
-  final List<Producer> producers;
-  final List<Licensor> licensors;
-  final List<String>? title_synonyms;
-  final ThemeSongs? theme;
+  int mal_id;
+  String? url;
+  Images images;
+  Trailer trailer;
+  String title;
+  String? title_english;
+  String? title_japanese;
+  String? type;
+  String? source;
+  int? episodes;
+  String? status;
+  String? duration;
+  String? rating;
+  double? score;
+  String? synopsis;
+  String? background;
+  String? season;
+  int? year;
+  List<Studios>? studios;
+  List<Genre> genres;
+  Aired aired;
+  Broadcast broadcast;
+  List<Producer> producers;
+  List<Licensor> licensors;
+  List<String>? title_synonyms;
+  ThemeSongs? theme;
 
   Anime({
     required this.mal_id,
-    required this.url,
+    this.url,
     required this.images,
     required this.trailer,
     required this.title,
     this.title_english,
     this.title_japanese,
-    required this.type,
-    required this.source,
+    this.type,
+    this.source,
     this.episodes,
-    required this.status,
+    this.status,
     this.duration,
     this.rating,
     this.score,
@@ -52,7 +52,7 @@ class Anime {
     this.background,
     this.season,
     this.year,
-    required this.studios,
+    this.studios,
     required this.genres,
     required this.aired,
     required this.broadcast,
@@ -73,8 +73,8 @@ class Images {
   Webp? webp;
 
   Images({
-    required this.jpg,
-    required this.webp,
+    this.jpg,
+    this.webp,
   });
 
   factory Images.fromJson(Map<String, dynamic> json) => _$ImagesFromJson(json);
@@ -89,9 +89,9 @@ class Jpg {
   String? large_image_url;
 
   Jpg({
-    required this.image_url,
-    required this.small_image_url,
-    required this.large_image_url,
+    this.image_url,
+    this.small_image_url,
+    this.large_image_url,
   });
 
   factory Jpg.fromJson(Map<String, dynamic> json) => _$JpgFromJson(json);
@@ -106,9 +106,9 @@ class Webp {
   String? large_image_url;
 
   Webp({
-    required this.image_url,
-    required this.small_image_url,
-    required this.large_image_url,
+    this.image_url,
+    this.small_image_url,
+    this.large_image_url,
   });
 
   factory Webp.fromJson(Map<String, dynamic> json) => _$WebpFromJson(json);
@@ -118,12 +118,12 @@ class Webp {
 
 @JsonSerializable()
 class Genre {
-  final int? mal_id;
-  final String? name;
+  int? mal_id;
+  String? name;
 
   Genre({
-    required this.mal_id,
-    required this.name,
+    this.mal_id,
+    this.name,
   });
 
   factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
@@ -133,10 +133,10 @@ class Genre {
 
 @JsonSerializable()
 class Trailer {
-  final String? youtube_id;
-  final String? url;
-  final String? embed_url;
-  final Thumbnail? images;
+  String? youtube_id;
+  String? url;
+  String? embed_url;
+  Thumbnail? images;
 
   Trailer({
     this.youtube_id,
@@ -159,10 +159,10 @@ class Thumbnail {
   String? maximum_image_url;
 
   Thumbnail({
-    required this.image_url,
-    required this.small_image_url,
-    required this.large_image_url,
-    required this.maximum_image_url,
+    this.image_url,
+    this.small_image_url,
+    this.large_image_url,
+    this.maximum_image_url,
   });
 
   factory Thumbnail.fromJson(Map<String, dynamic> json) =>
@@ -173,16 +173,16 @@ class Thumbnail {
 
 @JsonSerializable()
 class Studios {
-  final int? mal_id;
-  final String? type;
-  final String? name;
-  final String? url;
+  int? mal_id;
+  String? type;
+  String? name;
+  String? url;
 
   Studios({
-    required this.mal_id,
-    required this.type,
-    required this.name,
-    required this.url,
+    this.mal_id,
+    this.type,
+    this.name,
+    this.url,
   });
 
   factory Studios.fromJson(Map<String, dynamic> json) =>
@@ -193,16 +193,16 @@ class Studios {
 
 @JsonSerializable()
 class Aired {
-  final String? from;
-  final String? to;
-  final Prop prop;
-  final String? string;
+  String? from;
+  String? to;
+  Prop prop;
+  String? string;
 
   Aired({
-    required this.from,
-    required this.to,
+    this.from,
+    this.to,
     required this.prop,
-    required this.string,
+    this.string,
   });
 
   factory Aired.fromJson(Map<String, dynamic> json) => _$AiredFromJson(json);
@@ -212,8 +212,8 @@ class Aired {
 
 @JsonSerializable()
 class Prop {
-  final From from;
-  final To to;
+  From from;
+  To to;
 
   Prop({
     required this.from,
@@ -227,11 +227,11 @@ class Prop {
 
 @JsonSerializable()
 class From {
-  final int? day;
-  final int? month;
-  final int? year;
+  int? day;
+  int? month;
+  int? year;
 
-  From({required this.day, required this.month, required this.year});
+  From({this.day, this.month, this.year});
 
   factory From.fromJson(Map<String, dynamic> json) => _$FromFromJson(json);
 
@@ -240,11 +240,11 @@ class From {
 
 @JsonSerializable()
 class To {
-  final int? day;
-  final int? month;
-  final int? year;
+  int? day;
+  int? month;
+  int? year;
 
-  To({required this.day, required this.month, required this.year});
+  To({this.day, this.month, this.year});
 
   factory To.fromJson(Map<String, dynamic> json) => _$ToFromJson(json);
 
@@ -253,16 +253,16 @@ class To {
 
 @JsonSerializable()
 class Broadcast {
-  final String? day;
-  final String? time;
-  final String? timezone;
-  final String? string;
+  String? day;
+  String? time;
+  String? timezone;
+  String? string;
 
   Broadcast({
-    required this.day,
-    required this.time,
-    required this.timezone,
-    required this.string,
+    this.day,
+    this.time,
+    this.timezone,
+    this.string,
   });
 
   factory Broadcast.fromJson(Map<String, dynamic> json) =>
@@ -321,7 +321,8 @@ class ThemeSongs {
     this.endings,
   });
 
-  factory ThemeSongs.fromJson(Map<String, dynamic> json) => _$ThemeSongsFromJson(json);
+  factory ThemeSongs.fromJson(Map<String, dynamic> json) =>
+      _$ThemeSongsFromJson(json);
 
   Map<String, dynamic> toJson() => _$ThemeSongsToJson(this);
 }

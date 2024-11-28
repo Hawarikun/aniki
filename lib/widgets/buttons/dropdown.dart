@@ -1,19 +1,19 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/dummys/List.dart';
-import 'package:aniki/features/infinite_scroll/persentation/view/infinite_fragment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final ddValueProvider = StateProvider.autoDispose<String>((ref) => types.first);
 
 class CustomDropdownButton extends ConsumerWidget {
-  const CustomDropdownButton({super.key});
+  const CustomDropdownButton({super.key, required this.onChanged});
+
+  final ValueChanged<String?>? onChanged;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     final values = ref.watch(ddValueProvider);
-    final pagingController = ref.watch(pagingControllerProvider);
 
     return DropdownButton<String>(
       value: values,
@@ -30,11 +30,7 @@ class CustomDropdownButton extends ConsumerWidget {
           );
         },
       ).toList(),
-      onChanged: (value) {
-        ref.read(ddValueProvider.notifier).state = value!;
-
-        pagingController.refresh();
-      },
+      onChanged: onChanged,
     );
   }
 }

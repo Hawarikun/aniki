@@ -134,7 +134,7 @@ class DetailPage extends ConsumerWidget {
                                   Gap(size.width * 0.03),
 
                                   /// Type
-                                  BorderText(content: data.type),
+                                  BorderText(content: data.type ?? "Unknown"),
                                 ],
                               ),
                               Gap(size.height * 0.03),

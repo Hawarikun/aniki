@@ -1,10 +1,8 @@
-import 'package:aniki/core/apis/ongoing.dart';
+import 'package:aniki/core/apis/seasons.dart';
 import 'package:aniki/core/apis/search.dart';
 import 'package:aniki/core/apis/top_anime.dart';
 import 'package:aniki/core/domain/anime.dart';
-import 'package:aniki/core/dummys/enum.dart';
-import 'package:aniki/features/infinite_scroll/persentation/view/grid_infinite_scroll.dart';
-import 'package:aniki/features/infinite_scroll/persentation/view/tile_infinite_scroll.dart';
+import 'package:aniki/widgets/infinite_scroll/tile_infinite_scroll.dart';
 import 'package:aniki/features/ongoing/data/ongoing.dart';
 import 'package:aniki/features/search/data/search.dart';
 import 'package:aniki/features/search/persentation/view/filter.dart';
@@ -21,20 +19,17 @@ final pagingControllerProvider =
   return PagingController(firstPageKey: 1);
 });
 
-class InfiniteScrollFragment extends ConsumerStatefulWidget {
-  const InfiniteScrollFragment({
+class MoreAnimeFragment extends ConsumerStatefulWidget {
+  const MoreAnimeFragment({
     super.key,
-    required this.typeCard,
   });
 
-  final TypeCard typeCard;
-
   @override
-  InfiniteScrollFragmentState createState() => InfiniteScrollFragmentState();
+  MoreAnimeFragmentState createState() => MoreAnimeFragmentState();
 }
 
-class InfiniteScrollFragmentState
-    extends ConsumerState<InfiniteScrollFragment> {
+class MoreAnimeFragmentState
+    extends ConsumerState<MoreAnimeFragment> {
   @override
   void initState() {
     super.initState();
@@ -58,7 +53,7 @@ class InfiniteScrollFragmentState
       List<Anime> newItems = [];
 
       if (typeAnime == 'ongoing' || typeAnime == 'season') {
-        newItems = await OngoingRepository(OngoingApi()).index(
+        newItems = await OngoingRepository(SeasonApi()).index(
           continuing: typeAnime == 'ongoing' ? true : false,
           page: pageKey,
           limit: 25,
@@ -82,7 +77,7 @@ class InfiniteScrollFragmentState
       if (isLastPage) {
         pagingController.appendLastPage(newItems);
       } else {
-        final nextPageKey = pageKey + newItems.length;
+        final nextPageKey = pageKey + 1;
         pagingController.appendPage(newItems, nextPageKey);
       }
     } catch (error) {
@@ -92,8 +87,6 @@ class InfiniteScrollFragmentState
 
   @override
   Widget build(BuildContext context) {
-    return widget.typeCard == TypeCard.tile
-        ? const TileInfiniteScrollFragment()
-        : const GridInfiniteScrollFragment();
+    return const TileInfiniteScrollFragment();
   }
 }
