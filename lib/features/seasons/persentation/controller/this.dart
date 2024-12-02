@@ -1,13 +1,12 @@
 import 'package:aniki/core/domain/anime.dart';
 import 'package:aniki/features/ongoing/data/ongoing.dart';
 import 'package:aniki/features/seasons/persentation/view/this_seasons.dart';
-import 'package:aniki/widgets/buttons/dropdown.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ThisSeasonAnimeController extends StateNotifier<List<Anime>> {
-  ThisSeasonAnimeController(this.repo, this.params, this.controller, this.type)
+  ThisSeasonAnimeController(this.repo, this.params, this.controller)
       : super([]) {
     fetchPage(params.pageKey);
   }
@@ -16,7 +15,7 @@ class ThisSeasonAnimeController extends StateNotifier<List<Anime>> {
   final ThisSeasonAnimeParams params;
 
   final PagingController controller;
-  final String type;
+  // final String type;
 
   Future<void> fetchPage(int pageKey) async {
     try {
@@ -26,7 +25,7 @@ class ThisSeasonAnimeController extends StateNotifier<List<Anime>> {
         continuing: false,
         page: pageKey,
         limit: 25,
-        type: type,
+        type: params.type,
       );
 
       final isLastPage = newItems.length < 24;
@@ -44,9 +43,11 @@ class ThisSeasonAnimeController extends StateNotifier<List<Anime>> {
 
 class ThisSeasonAnimeParams extends Equatable {
   final int pageKey;
+  final String type;
 
   const ThisSeasonAnimeParams({
     required this.pageKey,
+    required this.type,
   });
 
   @override
@@ -58,8 +59,8 @@ final thisSeasonAnimeConProv = AutoDisposeStateNotifierProviderFamily<
   (ref, params) {
     final repo = ref.read(ongoingRepoProv);
     final controller = ref.watch(thisSeasonPagingControllerProv);
-    final ddValue = ref.read(ddValueProvider);
+    // final ddValue = ref.read(ddValueProvider);
 
-    return ThisSeasonAnimeController(repo, params, controller, ddValue);
+    return ThisSeasonAnimeController(repo, params, controller);
   },
 );

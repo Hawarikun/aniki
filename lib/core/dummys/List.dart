@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:aniki/core/domain/anime.dart';
 
 List<Genre> genres = [

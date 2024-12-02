@@ -1,5 +1,6 @@
 import 'package:aniki/core/config/text_size.dart';
 import 'package:aniki/core/domain/anime.dart';
+import 'package:aniki/core/dummys/List.dart';
 import 'package:aniki/features/seasons/persentation/controller/this.dart';
 import 'package:aniki/widgets/buttons/dropdown.dart';
 import 'package:aniki/widgets/cards/card.dart';
@@ -22,15 +23,16 @@ class ThisSeasonsFragment extends ConsumerStatefulWidget {
   ThisSeasonsFragmentState createState() => ThisSeasonsFragmentState();
 }
 
-class ThisSeasonsFragmentState
-    extends ConsumerState<ThisSeasonsFragment> {
+class ThisSeasonsFragmentState extends ConsumerState<ThisSeasonsFragment> {
+  String ddValue = types.first;
+
   @override
   void initState() {
     final controller = ref.read(thisSeasonPagingControllerProv);
     controller.addPageRequestListener(
       (pageKey) => ref.read(
         thisSeasonAnimeConProv(
-          ThisSeasonAnimeParams(pageKey: pageKey),
+          ThisSeasonAnimeParams(pageKey: pageKey, type: ddValue),
         ),
       ),
     );
@@ -46,7 +48,7 @@ class ThisSeasonsFragmentState
     return Padding(
       padding: EdgeInsets.fromLTRB(
         size.width * 0.03,
-        0,
+        size.height * 0.01,
         size.width * 0.03,
         0,
       ),
@@ -57,14 +59,19 @@ class ThisSeasonsFragmentState
             children: [
               Expanded(
                 child: CustomDropdownButton(
+                  value: ddValue,
                   onChanged: (value) {
-                    ref.read(ddValueProvider.notifier).state = value!;
+                    // ref.read(ddValueProvider.notifier).state = value!;
+                    setState(() {
+                      ddValue = value!;
+                    });
 
                     controller.refresh();
                   },
                 ),
               ),
               Expanded(
+                flex: 3,
                 child: Center(
                   child: Text(
                     "seasonYear",
