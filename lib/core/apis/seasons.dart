@@ -25,4 +25,29 @@ class SeasonApi {
       },
     );
   }
+
+  Uri getAllSeason() {
+    return ApiHelper.buildUri(
+      endpoint: "seasons",
+    );
+  }
+
+  Uri getSeasonAnime({
+    required int year,
+    required String seasons,
+    int? page,
+    int? limit,
+    bool? continuing,
+    String? type,
+  }) {
+    return ApiHelper.buildUri(
+      endpoint: "seasons/$year/$seasons",
+      params: {
+        "continuing":
+            continuing != null ? continuing.toString() : true.toString(),
+        "page": page != null ? page.toString() : "1",
+        "filter": type ?? "",
+      },
+    );
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:aniki/core/config/text_size.dart';
+import 'package:aniki/features/seasons/persentation/view/archive/archive_fragment.dart';
 import 'package:aniki/features/seasons/persentation/view/this_seasons.dart';
 import 'package:aniki/features/seasons/persentation/view/upcoming_seasons.dart';
 import 'package:aniki/widgets/appbars/appbar.dart';
@@ -41,9 +42,7 @@ class SeasonsFragment extends StatelessWidget {
                   children: [
                     ThisSeasonsFragment(),
                     UpcomingSeasonsFragment(),
-                    Center(
-                      child: Text("Archive"),
-                    ),
+                    ArchiveSeasonFragment(),
                   ],
                 ),
               ),
